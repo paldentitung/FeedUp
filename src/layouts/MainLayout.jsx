@@ -5,24 +5,12 @@ import Header from "../Components/Header";
 const MainLayout = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  // Prevent body scrolling when sidebar is open
-  React.useEffect(() => {
-    if (showMenu) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [showMenu]);
-
   return (
     <div className="w-full max-w-6xl mx-auto min-h-screen flex flex-col">
       {/* Define a fixed height for Header */}
       <Header className="h-16" />
 
-      <main className="flex w-full min-h-[100vh] space-x-2 bg-gray-100">
+      <main className="flex w-full min-h-[100vh]  bg-gray-100">
         <aside className="md:w-[300px]">
           <SideBar showMenu={showMenu} setShowMenu={setShowMenu} />
         </aside>

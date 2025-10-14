@@ -8,7 +8,17 @@ import SuggestedUsers from "./SuggestedUsers";
 
 const Header = () => {
   const { showSidebar, toggleSidebar } = useContext(AppContext);
-
+  // Prevent body scrolling when sidebar is open
+  React.useEffect(() => {
+    if (showSidebar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showSidebar]);
   return (
     <div className="p-4 flex bg-white md:flex-row items-center justify-around sticky top-0 z-50">
       <button className="block md:hidden p-2 text-2xl" onClick={toggleSidebar}>

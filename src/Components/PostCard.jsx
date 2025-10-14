@@ -25,8 +25,8 @@ const PostCard = ({ post }) => {
   };
 
   return (
-    <section className="bg-white shadow-md rounded-lg p-2 md:p-6 mb-2 max-w-full">
-      <div className="flex flex-col gap-1.5">
+    <section className="bg-white shadow-md rounded-lg p-3 md:p-6 mb-2 max-w-full">
+      <div className="flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
@@ -86,7 +86,7 @@ const PostCard = ({ post }) => {
 
         {/* Reactions Summary */}
         <div className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 mt-1">
-          <div className="flex gap-1">
+          <div className="flex gap-1 items-center">
             {likeCount > 0 && <span>👍 {likeCount}</span>}
             {reactions.love > 0 && <span>❤️ {reactions.love}</span>}
             {reactions.wow > 0 && <span>😲 {reactions.wow}</span>}
