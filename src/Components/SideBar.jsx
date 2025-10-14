@@ -6,7 +6,7 @@ import SuggestedUsers from "./SuggestedUsers";
 const SideBar = ({ showMenu, setShowMenu }) => {
   return (
     <div className="h-full">
-      <div className="hidden md:block p-2  shadow-md  h-full">
+      <div className="hidden fixed md:block p-2 w-[300px]  shadow-md  h-full">
         <UserProfileCard />
         <TrendingTags />
         <SuggestedUsers />
