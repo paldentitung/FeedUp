@@ -1,14 +1,15 @@
 import React from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-
+import UserProfileCard from "./UserProfileCard";
+import TrendingTags from "./TrendingTags";
+import SuggestedUsers from "./SuggestedUsers";
 const SideBar = ({ showMenu, setShowMenu }) => {
   return (
     <div className="h-full">
       <div className="hidden md:block p-2  shadow-md  h-full">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut alias amet
-        magnam eaque doloremque, magni architecto, facilis optio repudiandae
-        tenetur, labore iste! Quo alias eius adipisci dignissimos necessitatibus
-        deleniti ullam?
+        <UserProfileCard />
+        <TrendingTags />
+        <SuggestedUsers />
       </div>
 
       <button
@@ -30,10 +31,10 @@ const SideBar = ({ showMenu, setShowMenu }) => {
           <FaTimes />
         </button>
         <div className="mt-8">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-          reprehenderit neque iusto mollitia ducimus, unde enim officia
-          excepturi reiciendis autem? Qui, expedita reprehenderit minima facere
-          eaque illum ad sequi numquam.
+          {" "}
+          <UserProfileCard />
+          <TrendingTags />
+          <SuggestedUsers />
         </div>
       </div>
 
