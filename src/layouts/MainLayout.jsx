@@ -18,11 +18,11 @@ const MainLayout = ({ children }) => {
   }, [showMenu]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto min-h-screen flex flex-col">
+    <div className="w-full max-w-6xl mx-auto min-h-screen flex flex-col">
       {/* Define a fixed height for Header */}
       <Header className="h-16" />
 
-      <main className="flex w-full min-h-[calc(100vh-4rem)] gap-5 bg-gray-100">
+      <main className="flex w-full min-h-[100vh] space-x-2 bg-gray-100">
         <aside className="md:w-[300px]">
           <SideBar showMenu={showMenu} setShowMenu={setShowMenu} />
         </aside>

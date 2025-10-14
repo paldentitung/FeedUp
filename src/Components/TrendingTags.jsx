@@ -5,7 +5,7 @@ const TrendingTags = () => {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-3">Trending Tags</h3>
+      <h3 className="text-lg font-semibold mb-3 p-2">Trending Tags</h3>
       <div className="flex flex-wrap gap-2">
         {trendingTags.map((tag, index) => (
           <span

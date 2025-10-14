@@ -6,7 +6,7 @@ export const AppProvider = ({ children }) => {
   const [post, setPosts] = useState([]);
   const [friend, setFriend] = useState([]);
   const [theme, setTheme] = useState("light");
-
+  const [showSidebar, setShowSidebar] = useState(false);
   //   toggle theme
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
 
@@ -19,9 +19,20 @@ export const AppProvider = ({ children }) => {
     );
   };
 
+  const toggleSidebar = () => setShowSidebar(!showSidebar);
+
   return (
     <AppContext.Provider
-      value={{ theme, setTheme, friend, setFriend, toggleFriends }}
+      value={{
+        theme,
+        setTheme,
+        friend,
+        setFriend,
+        toggleFriends,
+        setShowSidebar,
+        showSidebar,
+        toggleSidebar,
+      }}
     >
       {children}
     </AppContext.Provider>
