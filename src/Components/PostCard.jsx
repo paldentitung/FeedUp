@@ -25,7 +25,7 @@ const PostCard = ({ post }) => {
   };
 
   return (
-    <section className="bg-white shadow-md rounded-lg p-3 md:p-6 mb-2 max-w-full">
+    <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 max-w-full">
       <div className="flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-center justify-between">
