@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Button from "./Button";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 const AddPostForm = () => {
   const { handleAddPost } = useContext(AppContext);
   const navigator = useNavigate();
@@ -83,6 +84,14 @@ const AddPostForm = () => {
 
   return (
     <div className="   p-4 bg-white rounded-lg shadow-md">
+      <button
+        onClick={() => navigator(-1)}
+        className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-all duration-200 mb-5"
+      >
+        <FaArrowLeft />
+        Go Back
+      </button>
+
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
         Create a New Post
       </h2>

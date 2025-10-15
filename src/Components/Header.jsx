@@ -24,8 +24,9 @@ const Header = () => {
       <button className="block md:hidden p-2 text-2xl" onClick={toggleSidebar}>
         <FaBars />
       </button>
-      <h1 className="text-2xl font-bold">FeedUp</h1>
-
+      <Link to="/">
+        <h1 className="text-2xl font-bold">FeedUp</h1>
+      </Link>
       <div className="flex items-center gap-6">
         <FaSearch className="text-[16px] md:text-[22px] cursor-pointer" />
         <div className="block md:hidden">
