@@ -8,7 +8,8 @@ const postData = [
     moodTagColor: "bg-green-200 text-gray-800",
     content:
       "Just returned from a trek to Annapurna Base Camp! The views were breathtaking.",
-    images: ["/images/post1_1.png", "/images/post1_2.png"],
+    images: ["/PostImages/Annapurna-1.jpg", "/PostImages/Annapurna-2.jpg"],
+
     hashtags: ["#Nepal", "#Trekking", "#Annapurna"],
     reactions: { like: 45, love: 20, haha: 5 },
     comments: 12,
@@ -23,7 +24,7 @@ const postData = [
     moodTagColor: "bg-orange-200 text-gray-800",
     content:
       "Celebrating Dashain with family! The tika ceremony was so much fun.",
-    images: ["/images/post2_1.png"],
+    images: ["/PostImages/dashain-1.jpeg"],
     hashtags: ["#Dashain", "#Festival"],
     reactions: { like: 60, love: 30, wow: 10 },
     comments: 25,
@@ -38,9 +39,9 @@ const postData = [
     moodTagColor: "bg-blue-200 text-gray-800",
     content: "Evening walk by Phewa Lake. Pokhara is always so serene!",
     images: [
-      "/images/post3_1.png",
-      "/images/post3_2.png",
-      "/images/post3_3.png",
+      "/PostImages/Phewa-Lake-1.jpg",
+      "/PostImages/Phewa-Lake-2.jpg",
+      "/PostImages/Phewa-Lake-3.jpg",
     ],
     hashtags: ["#Pokhara", "#PhewaLake", "#Nature"],
     reactions: { like: 35, love: 15, wow: 7 },
@@ -56,7 +57,7 @@ const postData = [
     moodTagColor: "bg-purple-200 text-gray-800",
     content:
       "Started learning traditional Thakali cuisine today. Can’t wait to cook for friends!",
-    images: ["/images/post4_1.png"],
+    images: ["/PostImages/Thakalicuisine.jpeg"],
     hashtags: ["#Thakali", "#Cooking", "#NepaliCulture"],
     reactions: { like: 50, love: 25, yum: 12 },
     comments: 15,
@@ -70,7 +71,7 @@ const postData = [
     moodTag: "Curious",
     moodTagColor: "bg-teal-200 text-gray-800",
     content: "Anyone been to Mustang? Planning a trip and need tips!",
-    images: [],
+    images: ["/PostImages/mustang-1.jpg", "/PostImages/mustang-2.jpg"],
     hashtags: ["#Mustang", "#TravelNepal"],
     reactions: { like: 20, wow: 8, question: 3 },
     comments: 18,
@@ -85,7 +86,7 @@ const postData = [
     moodTagColor: "bg-pink-200 text-gray-800",
     content:
       "Thankful for the amazing support from my community during Tihar preparations!",
-    images: ["/images/post6_1.png", "/images/post6_2.png"],
+    images: ["/PostImages/tihar.jpg"],
     hashtags: ["#Tihar", "#Community"],
     reactions: { like: 70, love: 40, heart: 15 },
     comments: 22,
@@ -100,7 +101,7 @@ const postData = [
     moodTagColor: "bg-red-200 text-gray-800",
     content:
       "Ran 10km this morning around Boudhanath Stupa. Feeling unstoppable!",
-    images: ["/images/post7_1.png"],
+    images: ["/PostImages/Boudhanath-Stupa.jpg"],
     hashtags: ["#Running", "#Boudhanath", "#Fitness"],
     reactions: { like: 55, wow: 20, clap: 10 },
     comments: 14,
@@ -114,7 +115,10 @@ const postData = [
     moodTag: "Peaceful",
     moodTagColor: "bg-cyan-200 text-gray-800",
     content: "Meditating at Swayambhunath today. Such a calming experience.",
-    images: ["/images/post8_1.png", "/images/post8_2.png"],
+    images: [
+      "/PostImages/Swayambhunath-1.jpg",
+      "/PostImages/Swayambhunath-2.jpg",
+    ],
     hashtags: ["#Swayambhunath", "#Meditation"],
     reactions: { like: 30, love: 10, calm: 5 },
     comments: 9,
@@ -130,9 +134,9 @@ const postData = [
     content:
       "Working on a new painting inspired by Kathmandu’s vibrant streets.",
     images: [
-      "/images/post9_1.png",
-      "/images/post9_2.png",
-      "/images/post9_3.png",
+      "/PostImages/kathmandu-street-1.jpg",
+      "/PostImages/kathmandu-street-2.jpg",
+      "/PostImages/kathmandu-street-3.jpg",
     ],
     hashtags: ["#Art", "#Kathmandu"],
     reactions: { like: 40, love: 15, wow: 8 },
@@ -147,7 +151,7 @@ const postData = [
     moodTag: "Joyful",
     moodTagColor: "bg-yellow-200 text-gray-800",
     content: "Dancing to traditional Nepali folk music at a local event! 🕺",
-    images: ["/images/post10_1.png"],
+    images: ["/PostImages/traditional-Nepali.jpg"],
     hashtags: ["#NepaliDance", "#Culture"],
     reactions: { like: 65, love: 25, dance: 12 },
     comments: 20,

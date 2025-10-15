@@ -57,13 +57,16 @@ const PostCard = ({ post }) => {
         {/* Images */}
         {images.length > 0 && (
           <div className="mt-1 grid gap-1 w-full">
+            {/* 1 image */}
             {images.length === 1 && (
               <img
                 src={images[0]}
                 alt={`Post ${id} image 1`}
-                className="w-full h-72 object-cover rounded-md"
+                className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover rounded-md"
               />
             )}
+
+            {/* 2 images */}
             {images.length === 2 && (
               <div className="grid grid-cols-2 gap-1">
                 {images.map((img, idx) => (
@@ -71,30 +74,34 @@ const PostCard = ({ post }) => {
                     key={idx}
                     src={img}
                     alt={`Post ${id} image ${idx + 1}`}
-                    className="w-full h-40 object-cover rounded-md"
+                    className="w-full h-36 sm:h-48 md:h-56 lg:h-64 object-cover rounded-md"
                   />
                 ))}
               </div>
             )}
+
+            {/* 3 images */}
             {images.length === 3 && (
               <div className="grid grid-cols-2 gap-1">
                 <img
                   src={images[0]}
                   alt={`Post ${id} image 1`}
-                  className="row-span-2 h-full object-cover rounded-md"
+                  className="row-span-2 w-full h-full object-cover rounded-md"
                 />
                 <img
                   src={images[1]}
                   alt={`Post ${id} image 2`}
-                  className="w-full h-20 object-cover rounded-md"
+                  className="w-full h-28 sm:h-32 md:h-40 lg:h-48 object-cover rounded-md"
                 />
                 <img
                   src={images[2]}
                   alt={`Post ${id} image 3`}
-                  className="w-full h-20 object-cover rounded-md"
+                  className="w-full h-28 sm:h-32 md:h-40 lg:h-48 object-cover rounded-md"
                 />
               </div>
             )}
+
+            {/* 4+ images */}
             {images.length >= 4 && (
               <div className="grid grid-cols-2 gap-1">
                 {images.slice(0, 4).map((img, idx) => (
@@ -102,10 +109,10 @@ const PostCard = ({ post }) => {
                     <img
                       src={img}
                       alt={`Post ${id} image ${idx + 1}`}
-                      className="w-full h-40 object-cover rounded-md"
+                      className="w-full h-36 sm:h-48 md:h-56 lg:h-64 object-cover rounded-md"
                     />
                     {idx === 3 && images.length > 4 && (
-                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white font-bold text-xl rounded-md">
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-2xl rounded-md">
                         +{images.length - 4}
                       </div>
                     )}
