@@ -32,7 +32,7 @@ export const AppProvider = ({ children }) => {
 
   // handle add post
   const handleAddPost = (newPost) => {
-    setPosts((prev) => [...prev, newPost]);
+    setPosts((prev) => [newPost, ...prev]);
   };
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
