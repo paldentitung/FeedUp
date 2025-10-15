@@ -36,9 +36,22 @@ const AddPostForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const imageUrls = formData.images.map((file) => URL.createObjectURL(file));
+
+    // Convert files to Base64
+    const imageUrls = await Promise.all(
+      formData.images.map(
+        (file) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          })
+      )
+    );
+
     const newPost = {
       id: Date.now(),
       username: "CurrentUser",
@@ -67,6 +80,7 @@ const AddPostForm = () => {
 
     navigator("/");
   };
+
   return (
     <div className="   p-4 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
