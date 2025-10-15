@@ -25,7 +25,7 @@ const PostCard = ({ post }) => {
   };
 
   return (
-    <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 max-w-full">
+    <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 ">
       <div className="flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -56,15 +56,63 @@ const PostCard = ({ post }) => {
 
         {/* Images */}
         {images.length > 0 && (
-          <div className="mt-1 flex gap-1 snap-x snap-mandatory overflow-x-auto">
-            {images.map((image, index) => (
+          <div className="mt-1 grid gap-1 w-full">
+            {images.length === 1 && (
               <img
-                key={index}
-                src={image}
-                alt={`Post ${id} image ${index + 1}`}
-                className="w-20 h-20 object-cover rounded-md snap-center"
+                src={images[0]}
+                alt={`Post ${id} image 1`}
+                className="w-full h-72 object-cover rounded-md"
               />
-            ))}
+            )}
+            {images.length === 2 && (
+              <div className="grid grid-cols-2 gap-1">
+                {images.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`Post ${id} image ${idx + 1}`}
+                    className="w-full h-40 object-cover rounded-md"
+                  />
+                ))}
+              </div>
+            )}
+            {images.length === 3 && (
+              <div className="grid grid-cols-2 gap-1">
+                <img
+                  src={images[0]}
+                  alt={`Post ${id} image 1`}
+                  className="row-span-2 h-full object-cover rounded-md"
+                />
+                <img
+                  src={images[1]}
+                  alt={`Post ${id} image 2`}
+                  className="w-full h-20 object-cover rounded-md"
+                />
+                <img
+                  src={images[2]}
+                  alt={`Post ${id} image 3`}
+                  className="w-full h-20 object-cover rounded-md"
+                />
+              </div>
+            )}
+            {images.length >= 4 && (
+              <div className="grid grid-cols-2 gap-1">
+                {images.slice(0, 4).map((img, idx) => (
+                  <div key={idx} className="relative">
+                    <img
+                      src={img}
+                      alt={`Post ${id} image ${idx + 1}`}
+                      className="w-full h-40 object-cover rounded-md"
+                    />
+                    {idx === 3 && images.length > 4 && (
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white font-bold text-xl rounded-md">
+                        +{images.length - 4}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
