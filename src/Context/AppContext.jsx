@@ -1,12 +1,23 @@
-import { createContext, useState } from "react";
-
+import { createContext, useEffect, useState } from "react";
+import postData from "../data/PostData";
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [post, setPosts] = useState([]);
+  const [posts, setPosts] = useState(() => {
+    const savedPost = localStorage.getItem("savedPosts");
+    return savedPost ? JSON.parse(savedPost) : postData;
+  });
   const [friend, setFriend] = useState([]);
   const [theme, setTheme] = useState("light");
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  // locally added the posts
+
+  useEffect(() => {
+    localStorage.setItem("savedPosts", JSON.stringify(posts));
+  }, [posts]);
+
   //   toggle theme
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
 
@@ -19,8 +30,16 @@ export const AppProvider = ({ children }) => {
     );
   };
 
+  // handle add post
+  const handleAddPost = (newPost) => {
+    setPosts((prev) => [...prev, newPost]);
+  };
+
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -32,6 +51,10 @@ export const AppProvider = ({ children }) => {
         setShowSidebar,
         showSidebar,
         toggleSidebar,
+        posts,
+        handleAddPost,
+        showModal,
+        toggleModal,
       }}
     >
       {children}

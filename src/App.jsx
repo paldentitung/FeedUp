@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./Pages/Home";
+import AddPostPage from "./Pages/AddPostPage";
 const App = () => {
   return (
     <>
@@ -12,6 +13,14 @@ const App = () => {
             element={
               <MainLayout>
                 <Home />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/add-post"
+            element={
+              <MainLayout>
+                <AddPostPage />
               </MainLayout>
             }
           />

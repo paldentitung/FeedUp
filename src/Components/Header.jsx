@@ -5,9 +5,9 @@ import { AppContext } from "../Context/AppContext";
 import UserProfileCard from "./UserProfileCard";
 import TrendingTags from "./TrendingTags";
 import SuggestedUsers from "./SuggestedUsers";
-
+import { Link } from "react-router-dom";
 const Header = () => {
-  const { showSidebar, toggleSidebar } = useContext(AppContext);
+  const { showSidebar, toggleSidebar, handleAddPost } = useContext(AppContext);
   // Prevent body scrolling when sidebar is open
   React.useEffect(() => {
     if (showSidebar) {
@@ -34,8 +34,11 @@ const Header = () => {
           </button>
         </div>
         <div className="hidden md:block">
-          <Button name="Add Post" />
+          <Link to="/add-post">
+            <Button name="Add Post" />
+          </Link>{" "}
         </div>
+
         <img
           src="/user.png"
           alt="user"
