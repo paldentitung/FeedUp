@@ -1,3 +1,4 @@
+import { image } from "framer-motion/client";
 import React, { useState } from "react";
 
 const PostCard = ({ post }) => {
@@ -17,6 +18,8 @@ const PostCard = ({ post }) => {
   } = post;
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(reactions.like);
+  // Fix: use 'images' from post, not 'image'
+  const showImages = images.length > 4 ? images.slice(0, 4) : images;
 
   // Handle like toggle and update count
   const handleLike = () => {
@@ -102,16 +105,17 @@ const PostCard = ({ post }) => {
             )}
 
             {/* 4+ images */}
+
             {images.length >= 4 && (
               <div className="grid grid-cols-2 gap-1">
-                {images.slice(0, 4).map((img, idx) => (
+                {showImages.map((img, idx, arr) => (
                   <div key={idx} className="relative">
                     <img
                       src={img}
                       alt={`Post ${id} image ${idx + 1}`}
                       className="w-full h-36 sm:h-48 md:h-56 lg:h-64 object-cover rounded-md"
                     />
-                    {idx === 3 && images.length > 4 && (
+                    {idx === arr.length - 1 && images.length > 4 && (
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-2xl rounded-md">
                         +{images.length - 4}
                       </div>
