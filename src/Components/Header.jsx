@@ -29,14 +29,16 @@ const Header = () => {
       <div className="flex items-center gap-6">
         <FaSearch className="text-[16px] md:text-[22px] cursor-pointer" />
         <div className="block md:hidden">
-          <button className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all">
-            +
-          </button>
+          <link to="/add-post">
+            <button className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all">
+              +
+            </button>
+          </link>
         </div>
         <div className="hidden md:block">
           <Link to="/add-post">
             <Button name="Add Post" />
-          </Link>{" "}
+          </Link>
         </div>
 
         <img
