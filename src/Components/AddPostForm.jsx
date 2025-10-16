@@ -37,6 +37,17 @@ const AddPostForm = () => {
     }
   };
 
+  const generateSlug = (text) => {
+    return (
+      text
+        .toLowerCase() // lowercase
+        .replace(/[^a-z0-9]+/g, "-") // replace spaces & special chars with dash
+        .replace(/(^-|-$)/g, "") + // remove leading/trailing dash
+      "-" +
+      Date.now()
+    ); // append timestamp to make it unique
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,6 +64,9 @@ const AddPostForm = () => {
       )
     );
 
+    // Generate slug
+    const slug = generateSlug(formData.content);
+
     const newPost = {
       id: Date.now(),
       username: "CurrentUser",
@@ -66,6 +80,7 @@ const AddPostForm = () => {
       reactions: { like: 0, love: 0, haha: 0 },
       comments: 0,
       shares: 0,
+      slug, // <-- add slug here
     };
 
     handleAddPost(newPost);

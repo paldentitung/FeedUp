@@ -13,7 +13,7 @@ const PostDetailPage = () => {
 
   return (
     <div className="p-4">
-      <PostCard post={selectedPost} />
+      <PostCard post={selectedPost} showComment={true} />
     </div>
   );
 };

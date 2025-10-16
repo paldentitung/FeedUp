@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-const PostCard = ({ post }) => {
+const PostCard = ({ post, showComment = false }) => {
   const {
     id,
     avatar,
@@ -12,6 +12,7 @@ const PostCard = ({ post }) => {
     images,
     hashtags,
     reactions,
+    commentCount,
     comments,
     shares,
     slug,
@@ -157,7 +158,7 @@ const PostCard = ({ post }) => {
               {reactions.calm > 0 && <span>🧘 {reactions.calm}</span>}
               {reactions.dance > 0 && <span>🕺 {reactions.dance}</span>}
             </div>
-            <span>💬 {comments}</span>
+            <span>💬 {commentCount}</span>
             <span>↗️ {shares}</span>
           </div>
 
@@ -191,6 +192,44 @@ const PostCard = ({ post }) => {
               ↗️ Share
             </button>
           </div>
+
+          {showComment && (
+            <div className="flex flex-col gap-3  rounded-lg ">
+              {comments.length > 0 ? (
+                comments.map((comment, index) => (
+                  <div
+                    key={`comment-${index}`}
+                    className="flex items-start gap-3 p-3 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
+                  >
+                    {/* Avatar placeholder */}
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-semibold">
+                        {comment.username.charAt(0).toUpperCase()}
+                      </div>
+                    </div>
+                    {/* Comment content */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-gray-800">
+                          {comment.username}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          • {new Date().toLocaleTimeString()}
+                        </span>
+                      </div>
+                      <p className="text-gray-700 text-sm mt-1">
+                        {comment.comment}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500 text-sm italic p-3">
+                  No comments yet.
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </Link>
