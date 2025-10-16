@@ -1,6 +1,7 @@
 const postData = [
   {
     id: 1,
+    slug: "aarav-shrestha-1",
     avatar: "/avatars/user1.png",
     username: "Aarav Shrestha",
     timestamp: "2 hours ago",
@@ -9,7 +10,6 @@ const postData = [
     content:
       "Just returned from a trek to Annapurna Base Camp! The views were breathtaking.",
     images: ["/PostImages/Annapurna-1.jpg", "/PostImages/Annapurna-2.jpg"],
-
     hashtags: ["#Nepal", "#Trekking", "#Annapurna"],
     reactions: { like: 45, love: 20, haha: 5 },
     comments: 12,
@@ -17,6 +17,7 @@ const postData = [
   },
   {
     id: 2,
+    slug: "bimala-thapa-2",
     avatar: "/avatars/user2.png",
     username: "Bimala Thapa",
     timestamp: "4 hours ago",
@@ -32,6 +33,7 @@ const postData = [
   },
   {
     id: 3,
+    slug: "chandra-gurung-3",
     avatar: "/avatars/user3.png",
     username: "Chandra Gurung",
     timestamp: "1 day ago",
@@ -50,6 +52,7 @@ const postData = [
   },
   {
     id: 4,
+    slug: "deepika-kc-4",
     avatar: "/avatars/user4.png",
     username: "Deepika KC",
     timestamp: "6 hours ago",
@@ -65,6 +68,7 @@ const postData = [
   },
   {
     id: 5,
+    slug: "eklavya-tamang-5",
     avatar: "/avatars/user5.png",
     username: "Eklavya Tamang",
     timestamp: "3 hours ago",
@@ -79,6 +83,7 @@ const postData = [
   },
   {
     id: 6,
+    slug: "fulmaya-magar-6",
     avatar: "/avatars/user6.png",
     username: "Fulmaya Magar",
     timestamp: "12 hours ago",
@@ -94,6 +99,7 @@ const postData = [
   },
   {
     id: 7,
+    slug: "gopal-rai-7",
     avatar: "/avatars/user7.png",
     username: "Gopal Rai",
     timestamp: "8 hours ago",
@@ -109,6 +115,7 @@ const postData = [
   },
   {
     id: 8,
+    slug: "hema-bhattarai-8",
     avatar: "/avatars/user8.png",
     username: "Hema Bhattarai",
     timestamp: "1 hour ago",
@@ -126,6 +133,7 @@ const postData = [
   },
   {
     id: 9,
+    slug: "ishwor-adhikari-9",
     avatar: "/avatars/user9.png",
     username: "Ishwor Adhikari",
     timestamp: "5 hours ago",
@@ -145,6 +153,7 @@ const postData = [
   },
   {
     id: 10,
+    slug: "janaki-poudel-10",
     avatar: "/avatars/user10.png",
     username: "Janaki Poudel",
     timestamp: "10 hours ago",

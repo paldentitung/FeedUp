@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./Pages/Home";
 import AddPostPage from "./Pages/AddPostPage";
+import PostDetailPage from "./Pages/PostDetailPage";
 const App = () => {
   return (
     <>
@@ -21,6 +22,14 @@ const App = () => {
             element={
               <MainLayout>
                 <AddPostPage />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/post/:slug"
+            element={
+              <MainLayout>
+                <PostDetailPage />
               </MainLayout>
             }
           />
