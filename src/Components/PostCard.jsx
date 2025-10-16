@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 const PostCard = ({ post, showComment = false }) => {
   const {
     id,
@@ -26,6 +27,33 @@ const PostCard = ({ post, showComment = false }) => {
   const handleLike = () => {
     setIsLiked(!isLiked);
     setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+  };
+
+  // comment handling
+  const [commentList, setCommentList] = useState(
+    Array.isArray(comments) ? comments : []
+  );
+
+  const [commentUserName, setCommentUserName] = useState("");
+  const [commentInput, setCommentInput] = useState("");
+
+  const handleAddComment = () => {
+    // Prevent empty inputs
+    if (!commentUserName.trim() || !commentInput.trim()) return;
+
+    // Create new comment object
+    const newComment = {
+      username: commentUserName,
+      comment: commentInput,
+      timestamp: new Date(),
+    };
+
+    // Update state
+    setCommentList((prev) => [newComment, ...prev]);
+
+    // Optionally clear input fields
+    setCommentUserName("");
+    setCommentInput("");
   };
 
   return (
@@ -195,8 +223,50 @@ const PostCard = ({ post, showComment = false }) => {
 
           {showComment && (
             <div className="flex flex-col gap-3  rounded-lg ">
-              {comments.length > 0 ? (
-                comments.map((comment, index) => (
+              <div className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-md">
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="username"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    onChange={(e) => setCommentUserName(e.target.value)}
+                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="Enter your username"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="comment"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Comment
+                  </label>
+                  <input
+                    type="text"
+                    name="comment"
+                    id="comment"
+                    onChange={(E) => setCommentInput(E.target.value)}
+                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="Add your comment"
+                  />
+                </div>
+                <button
+                  name="add"
+                  onClick={handleAddComment}
+                  className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                >
+                  Add Comment
+                </button>
+              </div>
+
+              {commentList.length > 0 ? (
+                commentList.map((comment, index) => (
                   <div
                     key={`comment-${index}`}
                     className="flex items-start gap-3 p-3 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
