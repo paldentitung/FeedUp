@@ -56,6 +56,16 @@ const PostCard = ({ post, showComment = false }) => {
     setCommentInput("");
   };
 
+  // handle share
+  const [shareCount, setShareCount] = useState(shares);
+
+  const handleShare = () => {
+    const url = `${window.location.origin}/post/${slug}`;
+    navigator.clipboard.writeText(url);
+    setShareCount((prev) => prev + 1);
+    alert("Post URL copied to clipboard!");
+  };
+
   return (
     <Link to={`/post/${slug}`}>
       <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 ">
@@ -187,7 +197,7 @@ const PostCard = ({ post, showComment = false }) => {
               {reactions.dance > 0 && <span>🕺 {reactions.dance}</span>}
             </div>
             <span>💬 {commentCount}</span>
-            <span>↗️ {shares}</span>
+            <span> ↗️ {shareCount}</span>
           </div>
 
           {/* Action Buttons */}
@@ -216,6 +226,7 @@ const PostCard = ({ post, showComment = false }) => {
             <button
               className="px-1.5 py-0.5 text-sm text-gray-600 rounded-md hover:text-blue-500 hover:bg-blue-100 transition-all duration-300"
               aria-label={`Share ${username}'s post`}
+              onClick={handleShare}
             >
               ↗️ Share
             </button>
