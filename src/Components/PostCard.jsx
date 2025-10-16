@@ -67,9 +67,9 @@ const PostCard = ({ post, showComment = false }) => {
   };
 
   return (
-    <Link to={`/post/${slug}`}>
-      <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 ">
-        <div className="flex flex-col gap-3">
+    <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 ">
+      <div className="flex flex-col gap-3">
+        <Link to={`/post/${slug}`}>
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
@@ -166,154 +166,150 @@ const PostCard = ({ post, showComment = false }) => {
               )}
             </div>
           )}
-
-          {/* Hashtags */}
-          {hashtags.length > 0 && (
-            <div className="mt-1 flex flex-wrap gap-1">
-              {hashtags.map((tag, index) => (
-                <a
-                  key={index}
-                  href={`/hashtag/${tag.slice(1)}`}
-                  className="text-blue-500 text-sm hover:underline"
-                  aria-label={`Hashtag ${tag}`}
-                >
-                  {tag}
-                </a>
-              ))}
-            </div>
-          )}
-
-          {/* Reactions Summary */}
-          <div className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 mt-1">
-            <div className="flex gap-1 items-center">
-              {likeCount > 0 && <span>👍 {likeCount}</span>}
-              {reactions.love > 0 && <span>❤️ {reactions.love}</span>}
-              {reactions.wow > 0 && <span>😲 {reactions.wow}</span>}
-              {reactions.haha > 0 && <span>😂 {reactions.haha}</span>}
-              {reactions.yum > 0 && <span>😋 {reactions.yum}</span>}
-              {reactions.question > 0 && <span>❓ {reactions.question}</span>}
-              {reactions.clap > 0 && <span>👏 {reactions.clap}</span>}
-              {reactions.calm > 0 && <span>🧘 {reactions.calm}</span>}
-              {reactions.dance > 0 && <span>🕺 {reactions.dance}</span>}
-            </div>
-            <span>💬 {commentCount}</span>
-            <span> ↗️ {shareCount}</span>
+        </Link>
+        {/* Hashtags */}
+        {hashtags.length > 0 && (
+          <div className="mt-1 flex flex-wrap gap-1">
+            {hashtags.map((tag, index) => (
+              <a
+                key={index}
+                href={`/hashtag/${tag.slice(1)}`}
+                className="text-blue-500 text-sm hover:underline"
+                aria-label={`Hashtag ${tag}`}
+              >
+                {tag}
+              </a>
+            ))}
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-between items-center pt-1 border-t border-gray-200">
-            <button
-              onClick={handleLike}
-              className={`px-1.5 py-0.5 text-sm rounded-md transition-all duration-300 ${
-                isLiked
-                  ? "text-blue-500 font-semibold bg-blue-100"
-                  : "text-gray-600 hover:text-blue-500 hover:bg-blue-100"
-              }`}
-              aria-label={
-                isLiked
-                  ? `Unlike ${username}'s post`
-                  : `Like ${username}'s post`
-              }
-            >
-              👍 {isLiked ? "Liked" : "Like"}
-            </button>
+        )}
+        {/* Reactions Summary */}
+        <div className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 mt-1">
+          <div className="flex gap-1 items-center">
+            {likeCount > 0 && <span>👍 {likeCount}</span>}
+            {reactions.love > 0 && <span>❤️ {reactions.love}</span>}
+            {reactions.wow > 0 && <span>😲 {reactions.wow}</span>}
+            {reactions.haha > 0 && <span>😂 {reactions.haha}</span>}
+            {reactions.yum > 0 && <span>😋 {reactions.yum}</span>}
+            {reactions.question > 0 && <span>❓ {reactions.question}</span>}
+            {reactions.clap > 0 && <span>👏 {reactions.clap}</span>}
+            {reactions.calm > 0 && <span>🧘 {reactions.calm}</span>}
+            {reactions.dance > 0 && <span>🕺 {reactions.dance}</span>}
+          </div>
+          <span>💬 {commentCount}</span>
+          <span> ↗️ {shareCount}</span>
+        </div>
+        {/* Action Buttons */}
+        <div className="flex justify-between items-center pt-1 border-t border-gray-200">
+          <button
+            onClick={handleLike}
+            className={`px-1.5 py-0.5 text-sm rounded-md transition-all duration-300 ${
+              isLiked
+                ? "text-blue-500 font-semibold bg-blue-100"
+                : "text-gray-600 hover:text-blue-500 hover:bg-blue-100"
+            }`}
+            aria-label={
+              isLiked ? `Unlike ${username}'s post` : `Like ${username}'s post`
+            }
+          >
+            👍 {isLiked ? "Liked" : "Like"}
+          </button>
+          <Link to={`/post/${slug}`}>
             <button
               className="px-1.5 py-0.5 text-sm text-gray-600 rounded-md hover:text-blue-500 hover:bg-blue-100 transition-all duration-300"
               aria-label={`Comment on ${username}'s post`}
             >
               💬 Comment
             </button>
-            <button
-              className="px-1.5 py-0.5 text-sm text-gray-600 rounded-md hover:text-blue-500 hover:bg-blue-100 transition-all duration-300"
-              aria-label={`Share ${username}'s post`}
-              onClick={handleShare}
-            >
-              ↗️ Share
-            </button>
-          </div>
-
-          {showComment && (
-            <div className="flex flex-col gap-3  rounded-lg ">
-              <div className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-md">
-                <div className="flex flex-col gap-1">
-                  <label
-                    htmlFor="username"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    onChange={(e) => setCommentUserName(e.target.value)}
-                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="Enter your username"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label
-                    htmlFor="comment"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Comment
-                  </label>
-                  <input
-                    type="text"
-                    name="comment"
-                    id="comment"
-                    onChange={(E) => setCommentInput(E.target.value)}
-                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="Add your comment"
-                  />
-                </div>
-                <button
-                  name="add"
-                  onClick={handleAddComment}
-                  className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          </Link>
+          <button
+            className="px-1.5 py-0.5 text-sm text-gray-600 rounded-md hover:text-blue-500 hover:bg-blue-100 transition-all duration-300"
+            aria-label={`Share ${username}'s post`}
+            onClick={handleShare}
+          >
+            ↗️ Share
+          </button>
+        </div>{" "}
+        {showComment && (
+          <div className="flex flex-col gap-3  rounded-lg ">
+            <div className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-md">
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="username"
+                  className="text-sm font-medium text-gray-700"
                 >
-                  Add Comment
-                </button>
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  onChange={(e) => setCommentUserName(e.target.value)}
+                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Enter your username"
+                />
               </div>
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="comment"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Comment
+                </label>
+                <input
+                  type="text"
+                  name="comment"
+                  id="comment"
+                  onChange={(E) => setCommentInput(E.target.value)}
+                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Add your comment"
+                />
+              </div>
+              <button
+                name="add"
+                onClick={handleAddComment}
+                className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+              >
+                Add Comment
+              </button>
+            </div>
 
-              {commentList.length > 0 ? (
-                commentList.map((comment, index) => (
-                  <div
-                    key={`comment-${index}`}
-                    className="flex items-start gap-3 p-3 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
-                  >
-                    {/* Avatar placeholder */}
-                    <div className="flex-shrink-0">
-                      <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-semibold">
-                        {comment.username.charAt(0).toUpperCase()}
-                      </div>
-                    </div>
-                    {/* Comment content */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium text-gray-800">
-                          {comment.username}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          • {new Date().toLocaleTimeString()}
-                        </span>
-                      </div>
-                      <p className="text-gray-700 text-sm mt-1">
-                        {comment.comment}
-                      </p>
+            {commentList.length > 0 ? (
+              commentList.map((comment, index) => (
+                <div
+                  key={`comment-${index}`}
+                  className="flex items-start gap-3 p-3 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors"
+                >
+                  {/* Avatar placeholder */}
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-semibold">
+                      {comment.username.charAt(0).toUpperCase()}
                     </div>
                   </div>
-                ))
-              ) : (
-                <p className="text-gray-500 text-sm italic p-3">
-                  No comments yet.
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-      </section>
-    </Link>
+                  {/* Comment content */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-gray-800">
+                        {comment.username}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        • {new Date().toLocaleTimeString()}
+                      </span>
+                    </div>
+                    <p className="text-gray-700 text-sm mt-1">
+                      {comment.comment}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-sm italic p-3">
+                No comments yet.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 
