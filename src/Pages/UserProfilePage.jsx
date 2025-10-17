@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import UsersData from "../data/UsersData";
 import PostCard from "../Components/PostCard";
-
+import { FaArrowLeft } from "react-icons/fa";
 const UserProfilePage = () => {
   const { posts, friend, toggleFriends } = useContext(AppContext);
   const { username } = useParams();
@@ -29,9 +29,17 @@ const UserProfilePage = () => {
 
   const isFriend = friend.includes(selectedUser.id);
   const [activeTab, setActiveTab] = useState("posts");
+  const navigator = useNavigate();
 
   return (
-    <section className="flex flex-col gap-4 md:p-6 p-3 bg-gray-100 min-h-screen">
+    <section className="flex flex-col gap-2 md:p-6 p-3 bg-gray-100 min-h-screen">
+      <button
+        className="flex items-center gap-1  text-blue-500   p-1"
+        onClick={() => navigator(-1)}
+      >
+        <FaArrowLeft />
+        GoBack
+      </button>
       {/* Profile Info */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 p-6 bg-white rounded-xl shadow-lg">
         <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
