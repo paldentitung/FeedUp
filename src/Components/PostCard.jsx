@@ -80,29 +80,30 @@ const PostCard = ({ post, showComment = false }) => {
   return (
     <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 ">
       <div className="flex flex-col gap-3">
-        <Link to={`/post/${slug}`}>
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <img
-                src={avatar}
-                alt={`${username}'s avatar`}
-                className="w-7 h-7 rounded-full object-cover border border-gray-200"
-              />
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <img
+              src={avatar}
+              alt={`${username}'s avatar`}
+              className="w-7 h-7 rounded-full object-cover border border-gray-200"
+            />
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1">
+                <Link to={`/user-profile/${username}`}>
                   <h1 className="font-semibold text-sm">{username}</h1>
-                  <span
-                    className={`text-[12px] px-2 py-1 rounded-full ${moodTagColor}`}
-                  >
-                    {moodTag}
-                  </span>
-                </div>
-                <span className="text-[12px] text-gray-400">{timestamp}</span>
+                </Link>
+                <span
+                  className={`text-[12px] px-2 py-1 rounded-full ${moodTagColor}`}
+                >
+                  {moodTag}
+                </span>
               </div>
+              <span className="text-[12px] text-gray-400">{timestamp}</span>
             </div>
           </div>
-
+        </div>
+        <Link to={`/post/${slug}`}>
           {/* Content */}
           <p className="text-sm text-gray-800 max-w-full break-words">
             {content}
