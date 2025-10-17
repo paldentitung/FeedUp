@@ -69,7 +69,7 @@ const UserProfilePage = () => {
       </div>
 
       {/* Tabs and Content */}
-      <div className="bg-white rounded-xl shadow-md p-4">
+      <div>
         <div className="flex gap-4 border-b border-gray-200">
           <button
             onClick={() => setActiveTab("posts")}
@@ -113,13 +113,12 @@ const UserProfilePage = () => {
         )}
 
         {activeTab === "About" && (
-          <div className="mt-4 p-6 bg-gray-50 rounded-lg">
+          <div className="mt-4 p-6 bg-white rounded-lg shadow">
             <h2 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">
               About {selectedUser.username}
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
-              {userInfo?.bio ||
-                "No bio available yet. Stay tuned for more details!"}
+              {userInfo?.bio || "No bio available yet."}
             </p>
           </div>
         )}

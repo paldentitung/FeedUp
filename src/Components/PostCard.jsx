@@ -22,22 +22,23 @@ const PostCard = ({ post, showComment = false }) => {
   const savedLikes = JSON.parse(localStorage.getItem("likedPosts")) || {};
   const [isLiked, setIsLiked] = useState(savedLikes[id] || false);
   const [likeCount, setLikeCount] = useState(
-    reactions.like + [savedLikes[id] ? 1 : 0]
+    reactions.like + (savedLikes[id] ? 1 : 0)
   );
+
   // Fix: use 'images' from post, not 'image'
   const showImages = images.length > 4 ? images.slice(0, 4) : images;
 
   // Handle like toggle and update count
   const handleLike = () => {
-    setIsLiked((prev) => {
-      const newLiked = !prev;
+    const newLiked = !isLiked; // toggle
 
-      const updatedLikes = { ...savedLikes, [id]: newLiked };
-      localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
+    // Update localStorage
+    const updatedLikes = { ...savedLikes, [id]: newLiked };
+    localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
 
-      setLikeCount((prev) => (newLiked ? prev + 1 : prev - 1));
-      return newLiked;
-    });
+    // Update states
+    setIsLiked(newLiked);
+    setLikeCount((prev) => (newLiked ? prev + 1 : prev - 1));
   };
 
   // comment handling
