@@ -5,10 +5,20 @@ import { AppContext } from "../Context/AppContext";
 import UserProfileCard from "./UserProfileCard";
 import TrendingTags from "./TrendingTags";
 import SuggestedUsers from "./SuggestedUsers";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
+import Modal from "./Modal";
 const Header = () => {
-  const { showSidebar, toggleSidebar, logIn, register } =
-    useContext(AppContext);
+  const {
+    showSidebar,
+    toggleSidebar,
+    logIn,
+    register,
+    handleLogIn,
+    toggleModal,
+    setShowModal,
+  } = useContext(AppContext);
+  const navigator = useNavigate();
   // Prevent body scrolling when sidebar is open
   React.useEffect(() => {
     if (showSidebar) {
@@ -20,8 +30,14 @@ const Header = () => {
       document.body.style.overflow = "auto";
     };
   }, [showSidebar]);
+
+  const handleLogOut = () => {
+    handleLogIn(false);
+    navigator("/register");
+    setShowModal(false);
+  };
   return (
-    <div className="p-4 flex bg-white md:flex-row items-center justify-around sticky top-0 z-50">
+    <div className="p-4 flex bg-white md:flex-row items-center justify-around sticky top-0 z-30">
       <button className="block md:hidden p-2 text-2xl" onClick={toggleSidebar}>
         <FaBars />
       </button>
@@ -58,7 +74,7 @@ const Header = () => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-4/5 max-w-[300px] h-full bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out z-50 ${
+        className={` fixed top-0 left-0 w-4/5 max-w-[300px] h-full bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out z-50 overflow-auto ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         } md:hidden`}
       >
@@ -73,16 +89,39 @@ const Header = () => {
           <UserProfileCard />
           <TrendingTags />
           <SuggestedUsers />
+          <div className="p-4 mx-auto mt-10" onClick={toggleModal}>
+            <FiLogOut size={25} />
+          </div>
         </div>
       </div>
 
       {/* Overlay */}
       {showSidebar && (
         <div
-          className="fixed top-16 left-0 w-full h-full bg-white/50 z-40 md:hidden"
+          className="fixed top-16 left-0 w-full h-full overflow-auto bg-white/50 z-40 md:hidden"
           onClick={toggleSidebar}
         ></div>
       )}
+
+      <Modal>
+        <div className="flex flex-col text-center justify-center items-center gap-5 bg-white w-full h-full max-w-[300px] max-h-[300px]">
+          <p>Are you sure ? </p>
+          <div className="flex gap-5">
+            <button
+              onClick={handleLogOut}
+              className="px-6 py-2 shadow rounded-md bg-blue-500 text-white transition-all duration-300 hover:cursor-pointer hover:ring-1 hover:"
+            >
+              Log Out
+            </button>
+            <button
+              onClick={toggleModal}
+              className="px-6 py-2 shadow rounded-md  bg-red-500  text-white transition-all duration-300 hover:cursor-pointer hover:ring-1 hover:"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
