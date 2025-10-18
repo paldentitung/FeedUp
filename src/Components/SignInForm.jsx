@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../Context/AppContext";
 const SignInForm = ({ setRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigator = useNavigate();
+  const { setLogIn } = useContext(AppContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!username || !password) {
       alert("enter valid info");
       return;
     }
+    setLogIn(true);
     navigator("/");
   };
 

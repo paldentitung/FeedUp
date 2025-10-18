@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../Context/AppContext";
 const SignUpForm = ({ setRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -9,6 +10,7 @@ const SignUpForm = ({ setRegister }) => {
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigator = useNavigate();
+  const { setLogIn } = useContext(AppContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!username || !password || !email) {
@@ -19,7 +21,7 @@ const SignUpForm = ({ setRegister }) => {
       alert("Passwords do not match");
       return;
     }
-
+    setLogIn(true);
     navigator("/");
   };
   return (

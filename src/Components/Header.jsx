@@ -7,7 +7,8 @@ import TrendingTags from "./TrendingTags";
 import SuggestedUsers from "./SuggestedUsers";
 import { Link } from "react-router-dom";
 const Header = () => {
-  const { showSidebar, toggleSidebar, handleAddPost } = useContext(AppContext);
+  const { showSidebar, toggleSidebar, logIn, register } =
+    useContext(AppContext);
   // Prevent body scrolling when sidebar is open
   React.useEffect(() => {
     if (showSidebar) {
@@ -29,24 +30,30 @@ const Header = () => {
       </Link>
       <div className="flex items-center gap-6">
         <FaSearch className="text-[16px] md:text-[22px] cursor-pointer" />
-        <div className="block md:hidden">
-          <Link to="/add-post">
-            <button className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all">
-              +
-            </button>
-          </Link>
-        </div>
-        <div className="hidden md:block">
-          <Link to="/add-post">
-            <Button name="Add Post" />
-          </Link>
-        </div>
+        <Link to="/add-post">
+          <button
+            className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all"
+            title="Add Post"
+          >
+            +
+          </button>
+        </Link>
 
-        <img
-          src="/user.png"
-          alt="user"
-          className="w-8 h-8 md:h-12 md:w-12 object-cover transition-all duration-300 hover:cursor-pointer rounded-full hover:ring-blue-500 hover:ring-1"
-        />
+        {logIn ? (
+          <>
+            <img
+              src="/user.png"
+              alt="user"
+              className="w-8 h-8  object-cover transition-all duration-300 hover:cursor-pointer rounded-full hover:ring-blue-500 hover:ring-1"
+            />
+          </>
+        ) : (
+          <>
+            <Link to="/register">
+              <span className="text-blue-500 border-b p-1">Register</span>
+            </Link>{" "}
+          </>
+        )}
       </div>
 
       {/* Mobile Sidebar */}

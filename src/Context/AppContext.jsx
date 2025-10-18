@@ -48,6 +48,8 @@ export const AppProvider = ({ children }) => {
         toggleModal,
         register,
         setRegister,
+        logIn,
+        setLogIn,
       }}
     >
       {children}
