@@ -17,6 +17,7 @@ const Header = () => {
     handleLogIn,
     toggleModal,
     setShowModal,
+    showModal,
   } = useContext(AppContext);
   const navigator = useNavigate();
   // Prevent body scrolling when sidebar is open
@@ -29,7 +30,7 @@ const Header = () => {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [showSidebar]);
+  }, [showSidebar, showModal]);
 
   const handleLogOut = () => {
     handleLogIn(false);
