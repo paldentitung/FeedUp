@@ -10,7 +10,7 @@ const SignUpForm = ({ setRegister }) => {
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigator = useNavigate();
-  const { setLogIn } = useContext(AppContext);
+  const { handleLogIn } = useContext(AppContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!username || !password || !email) {
@@ -21,7 +21,7 @@ const SignUpForm = ({ setRegister }) => {
       alert("Passwords do not match");
       return;
     }
-    setLogIn(true);
+    handleLogIn(true);
     navigator("/");
   };
   return (

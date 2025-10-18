@@ -9,7 +9,10 @@ export const AppProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
   const [showSidebar, setShowSidebar] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [logIn, setLogIn] = useState(false);
+  const [logIn, setLogIn] = useState(() => {
+    const isLogin = localStorage.getItem("logIn");
+    return isLogin === "true";
+  });
   const [register, setRegister] = useState("signin");
   // Toggle theme
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
@@ -26,6 +29,12 @@ export const AppProvider = ({ children }) => {
   // Add a new post
   const handleAddPost = (newPost) => {
     setPosts((prev) => [newPost, ...prev]);
+  };
+
+  // handleLogIn
+  const handleLogIn = (value) => {
+    setLogIn(value);
+    localStorage.setItem("logIn", value);
   };
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
@@ -50,6 +59,7 @@ export const AppProvider = ({ children }) => {
         setRegister,
         logIn,
         setLogIn,
+        handleLogIn,
       }}
     >
       {children}

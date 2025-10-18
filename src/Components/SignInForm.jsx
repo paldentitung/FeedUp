@@ -7,14 +7,14 @@ const SignInForm = ({ setRegister }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigator = useNavigate();
-  const { setLogIn } = useContext(AppContext);
+  const { handleLogIn } = useContext(AppContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!username || !password) {
       alert("enter valid info");
       return;
     }
-    setLogIn(true);
+    handleLogIn(true);
     navigator("/");
   };
 
