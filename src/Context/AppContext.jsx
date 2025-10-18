@@ -9,7 +9,8 @@ export const AppProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
   const [showSidebar, setShowSidebar] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const [logIn, setLogIn] = useState(false);
+  const [register, setRegister] = useState("signin");
   // Toggle theme
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
 
@@ -45,6 +46,8 @@ export const AppProvider = ({ children }) => {
         handleAddPost,
         showModal,
         toggleModal,
+        register,
+        setRegister,
       }}
     >
       {children}

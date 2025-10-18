@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import AddPostPage from "./Pages/AddPostPage";
 import PostDetailPage from "./Pages/PostDetailPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+import Register from "./Pages/Register";
 const App = () => {
   return (
     <>
@@ -42,6 +43,7 @@ const App = () => {
               </MainLayout>
             }
           />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </>

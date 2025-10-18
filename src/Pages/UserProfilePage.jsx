@@ -41,7 +41,7 @@ const UserProfilePage = () => {
         GoBack
       </button>
       {/* Profile Info */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 p-6 bg-white rounded-xl shadow-lg">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 p-6 bg-white rounded-xl shadow-md">
         <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
           <img
             src={userInfo?.avatar}
