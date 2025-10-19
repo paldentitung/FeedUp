@@ -67,7 +67,9 @@ const Header = () => {
         ) : (
           <>
             <Link to="/register">
-              <span className="text-blue-500 border-b p-1">Register</span>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-full transition-all duration-200 hover:cursor-pointer active:opacity-75">
+                Register
+              </button>
             </Link>{" "}
           </>
         )}
