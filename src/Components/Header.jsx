@@ -50,25 +50,62 @@ const Header = () => {
       <Link to="/">
         <h1 className="text-2xl font-bold">FeedUp</h1>
       </Link>
-      <div className="flex items-center gap-6">
-        {showSearchBar ? (
-          <>
-            <div>
+      <div className="flex items-center gap-3 md:gap-6">
+        {/* 🔍 Desktop Search Bar */}
+        <div className="hidden md:flex items-center gap-3">
+          {showSearchBar ? (
+            <div className="flex items-center bg-gray-100 rounded-full px-3 py-2 shadow-sm transition-all duration-300 w-[250px] focus-within:ring-2 focus-within:ring-blue-400">
+              <FaSearch className="text-gray-500 text-sm mr-2" />
               <input
-                className="border"
+                type="text"
+                placeholder="Search posts..."
+                className="bg-transparent flex-1 text-sm outline-none placeholder-gray-400"
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+              <FaTimes
+                className="text-gray-500 ml-2 cursor-pointer hover:text-red-500 transition"
+                onClick={() => {
+                  setShowSearchBar(false);
+                  setSearchTerm("");
+                }}
+              />
             </div>
-          </>
-        ) : (
-          <>
-            {" "}
+          ) : (
             <FaSearch
-              onClick={() => setShowSearchBar(!showSearchBar)}
-              className="text-[16px] md:text-[22px] cursor-pointer"
+              onClick={() => setShowSearchBar(true)}
+              className="text-[22px] cursor-pointer hover:text-blue-500 transition"
             />
-          </>
+          )}
+        </div>
+
+        {/* 🔍 Mobile Search Icon */}
+        <div className="md:hidden">
+          <FaSearch
+            onClick={() => setShowSearchBar(true)}
+            className="text-[18px] cursor-pointer hover:text-blue-500 transition"
+          />
+        </div>
+
+        {/* 🔍 Mobile Search Bar (fixed below header) */}
+        {showSearchBar && (
+          <div className="fixed top-[70px] left-0 w-full bg-white shadow-md px-6 py-4 border-t border-gray-200 flex items-center md:hidden z-40">
+            <FaSearch className="text-gray-500 text-sm mr-2" />
+            <input
+              type="text"
+              placeholder="Search posts..."
+              className="flex-1 border border-gray-300 rounded-full px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FaTimes
+              className="text-gray-500 ml-3 cursor-pointer hover:text-red-500"
+              onClick={() => {
+                setShowSearchBar(false);
+                setSearchTerm("");
+              }}
+            />
+          </div>
         )}
+
         <Link to="/add-post">
           <button
             className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all"
