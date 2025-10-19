@@ -43,13 +43,18 @@ const Header = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
-    <div className="p-4 flex bg-white md:flex-row items-center justify-around sticky top-0 z-30">
-      <button className="block md:hidden p-2 text-2xl" onClick={toggleSidebar}>
-        <FaBars />
-      </button>
-      <Link to="/">
-        <h1 className="text-2xl font-bold">FeedUp</h1>
-      </Link>
+    <div className="p-4 flex bg-white md:flex-row items-center justify-between  sticky top-0 z-30">
+      <div className="flex ga-1 items-center">
+        <button
+          className="block md:hidden p-2 text-2xl"
+          onClick={toggleSidebar}
+        >
+          <FaBars />
+        </button>
+        <Link to="/">
+          <h1 className="text-2xl font-bold">FeedUp</h1>
+        </Link>
+      </div>
       <div className="flex items-center gap-3 md:gap-6">
         {/* 🔍 Desktop Search Bar */}
         <div className="hidden md:flex items-center gap-3">
