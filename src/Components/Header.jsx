@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
-import Button from "./Button";
 import { AppContext } from "../Context/AppContext";
 import UserProfileCard from "./UserProfileCard";
 import TrendingTags from "./TrendingTags";
@@ -8,6 +7,7 @@ import SuggestedUsers from "./SuggestedUsers";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import Modal from "./Modal";
+import { motion, AnimatePresence } from "framer-motion";
 const Header = () => {
   const {
     showSidebar,
@@ -86,29 +86,38 @@ const Header = () => {
         {/* 🔍 Mobile Search Icon */}
         <div className="md:hidden">
           <FaSearch
-            onClick={() => setShowSearchBar(true)}
+            onClick={() => setShowSearchBar(!showSearchBar)}
             className="text-[18px] cursor-pointer hover:text-blue-500 transition"
           />
         </div>
 
         {/* 🔍 Mobile Search Bar (fixed below header) */}
         {showSearchBar && (
-          <div className="fixed top-[70px] left-0 w-full bg-white shadow-md px-6 py-4 border-t border-gray-200 flex items-center md:hidden z-40">
-            <FaSearch className="text-gray-500 text-sm mr-2" />
-            <input
-              type="text"
-              placeholder="Search posts..."
-              className="flex-1 border border-gray-300 rounded-full px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <FaTimes
-              className="text-gray-500 ml-3 cursor-pointer hover:text-red-500"
-              onClick={() => {
-                setShowSearchBar(false);
-                setSearchTerm("");
-              }}
-            />
-          </div>
+          <AnimatePresence>
+            {" "}
+            <motion.div
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-[70px] left-0 w-full bg-white shadow-md px-6 py-4 border-t border-gray-200 flex items-center md:hidden z-40"
+            >
+              <FaSearch className="text-gray-500 text-sm mr-2" />
+              <input
+                type="text"
+                placeholder="Search posts..."
+                className="flex-1 border border-gray-300 rounded-full px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <FaTimes
+                className="text-gray-500 ml-3 cursor-pointer hover:text-red-500"
+                onClick={() => {
+                  setShowSearchBar(false);
+                  setSearchTerm("");
+                }}
+              />
+            </motion.div>
+          </AnimatePresence>
         )}
 
         <Link to="/add-post">
