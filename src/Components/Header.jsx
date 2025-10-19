@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import Button from "./Button";
 import { AppContext } from "../Context/AppContext";
@@ -18,6 +18,8 @@ const Header = () => {
     toggleModal,
     setShowModal,
     showModal,
+
+    setSearchTerm,
   } = useContext(AppContext);
   const navigator = useNavigate();
   // Prevent body scrolling when sidebar is open
@@ -37,6 +39,9 @@ const Header = () => {
     navigator("/register");
     setShowModal(false);
   };
+
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
   return (
     <div className="p-4 flex bg-white md:flex-row items-center justify-around sticky top-0 z-30">
       <button className="block md:hidden p-2 text-2xl" onClick={toggleSidebar}>
@@ -46,7 +51,24 @@ const Header = () => {
         <h1 className="text-2xl font-bold">FeedUp</h1>
       </Link>
       <div className="flex items-center gap-6">
-        <FaSearch className="text-[16px] md:text-[22px] cursor-pointer" />
+        {showSearchBar ? (
+          <>
+            <div>
+              <input
+                className="border"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <FaSearch
+              onClick={() => setShowSearchBar(!showSearchBar)}
+              className="text-[16px] md:text-[22px] cursor-pointer"
+            />
+          </>
+        )}
         <Link to="/add-post">
           <button
             className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all"

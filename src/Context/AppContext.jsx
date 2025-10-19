@@ -14,6 +14,8 @@ export const AppProvider = ({ children }) => {
     return isLogin === "true";
   });
   const [register, setRegister] = useState("signin");
+  const [searchTerm, setSearchTerm] = useState("");
+
   // Toggle theme
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
 
@@ -61,6 +63,9 @@ export const AppProvider = ({ children }) => {
         setLogIn,
         handleLogIn,
         setShowModal,
+
+        setSearchTerm,
+        searchTerm,
       }}
     >
       {children}
