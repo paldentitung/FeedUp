@@ -58,9 +58,15 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-3 md:gap-6">
         {/* 🔍 Desktop Search Bar */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3 relative">
           {showSearchBar ? (
-            <div className="flex items-center bg-gray-100 rounded-full px-3 py-2 shadow-sm transition-all duration-300 w-[250px] focus-within:ring-2 focus-within:ring-blue-400">
+            <motion.div
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: 250 }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute right-0 bg-gray-100 rounded-full px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-blue-400 flex items-center"
+            >
               <FaSearch className="text-gray-500 text-sm mr-2" />
               <input
                 type="text"
@@ -75,7 +81,7 @@ const Header = () => {
                   setSearchTerm("");
                 }}
               />
-            </div>
+            </motion.div>
           ) : (
             <FaSearch
               onClick={() => setShowSearchBar(true)}
