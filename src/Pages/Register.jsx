@@ -8,7 +8,7 @@ const Register = () => {
     <section className="w-full max-w-[550px] mx-auto flex justify-center items-center flex-col min-h-screen ">
       <div
         className="bg-white flex flex-col justify-center items-center 
-               w-full p-6
+               w-full p-6 rounded-md shadow-md
                  "
       >
         <div className="flex gap-4 mb-4">

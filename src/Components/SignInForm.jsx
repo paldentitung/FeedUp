@@ -22,7 +22,7 @@ const SignInForm = ({ setRegister }) => {
 
   return (
     <form
-      className="flex flex-col gap-5 w-full max-w-[400px]  p-5 mx-auto"
+      className="flex flex-col gap-5 w-full    mx-auto"
       onSubmit={handleSubmit}
     >
       <h2 className="text-xl font-semibold text-center mb-4">Sign In</h2>
