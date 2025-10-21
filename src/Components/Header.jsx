@@ -18,8 +18,8 @@ const Header = () => {
     toggleModal,
     setShowModal,
     showModal,
-
     setSearchTerm,
+    currentUser,
   } = useContext(AppContext);
   const navigator = useNavigate();
   // Prevent body scrolling when sidebar is open
@@ -35,6 +35,7 @@ const Header = () => {
   }, [showSidebar, showModal]);
 
   const handleLogOut = () => {
+    setCurrentUser(null);
     handleLogIn(false);
     navigator("/register");
     setShowModal(false);
@@ -43,7 +44,7 @@ const Header = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
-    <div className="p-4 flex bg-white md:flex-row items-center justify-between  sticky top-0 z-30">
+    <div className="p-6 flex bg-white md:flex-row items-center justify-between  sticky top-0 z-30">
       <div className="flex ga-1 items-center">
         <button
           className="block md:hidden p-2 text-2xl"
@@ -131,11 +132,13 @@ const Header = () => {
 
         {logIn ? (
           <>
-            <img
-              src="/user.png"
-              alt="user"
-              className="w-8 h-8  object-cover transition-all duration-300 hover:cursor-pointer rounded-full hover:ring-blue-500 hover:ring-1"
-            />
+            <Link to={`/${currentUser.username}`}>
+              <img
+                src={currentUser.avatar}
+                alt="user"
+                className="w-8 h-8  object-cover transition-all duration-300 hover:cursor-pointer rounded-full hover:ring-blue-500 hover:ring-1"
+              />
+            </Link>
           </>
         ) : (
           <>
