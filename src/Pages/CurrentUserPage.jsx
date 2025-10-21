@@ -38,7 +38,7 @@ const CurrentUserPage = () => {
             <Button name="Edit Profile" />
           </div>
         </div>
-        <p className="mt-2 text-gray-700  max-w-md font-bold">
+        <p className="mt-2 text-gray-700 text-center md:text-start  max-w-md font-bold">
           {currentUser.bio}
         </p>
       </div>
@@ -88,13 +88,44 @@ const CurrentUserPage = () => {
         )}
 
         {activeTab === "About" && (
-          <div className="mt-4 p-6 bg-white rounded-lg shadow">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">
-              About {username}
+          <div className="mt-4 p-5 bg-white rounded-xl shadow-md">
+            <h2 className="text-xl font-bold text-gray-800 mb-5">
+              About {username || "User"}
             </h2>
-            <p className="text-gray-600 text-sm md:text-base">
-              {currentUser?.bio || "No bio available yet."}
-            </p>
+            <div className="flex flex-col gap-5">
+              <div className="pb-3 border-b border-gray-200">
+                <span className="text-gray-500 text-sm font-medium block">
+                  Full Name
+                </span>
+                <p className="text-lg font-semibold text-gray-800 mt-1">
+                  {currentUser?.fullname || "Not provided"}
+                </p>
+              </div>
+              <div className="pb-3 border-b border-gray-200">
+                <span className="text-gray-500 text-sm font-medium block">
+                  Username
+                </span>
+                <p className="text-base text-gray-700 mt-1">
+                  @{currentUser?.username || "Not provided"}
+                </p>
+              </div>
+              <div className="pb-3 border-b border-gray-200">
+                <span className="text-gray-500 text-sm font-medium block">
+                  Status
+                </span>
+                <p className="text-base text-gray-700 mt-1">
+                  {currentUser?.status || "No status"}
+                </p>
+              </div>
+              <div>
+                <span className="text-gray-500 text-sm font-medium block">
+                  Bio
+                </span>
+                <p className="text-sm text-gray-600 mt-1">
+                  {currentUser?.bio || "No bio available yet."}
+                </p>
+              </div>
+            </div>
           </div>
         )}
       </div>

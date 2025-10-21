@@ -138,9 +138,9 @@ const Header = () => {
 
         {logIn ? (
           <>
-            <Link to={`/${currentUser.username}`}>
+            <Link to={`/${currentUser?.username}`}>
               <img
-                src={currentUser.avatar}
+                src={currentUser?.avatar}
                 alt="user"
                 className="w-8 h-8  object-cover transition-all duration-300 hover:cursor-pointer rounded-full hover:ring-blue-500 hover:ring-1"
               />
