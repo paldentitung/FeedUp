@@ -9,6 +9,7 @@ const SignInForm = ({ setRegister }) => {
   const [password, setPassword] = useState("");
   const navigator = useNavigate();
   const { handleLogIn } = useContext(AppContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!username || !password) {
@@ -21,49 +22,51 @@ const SignInForm = ({ setRegister }) => {
 
   return (
     <form
-      className="flex flex-col gap-5 bg-white w-full max-w-[400px]  p-6"
+      className="flex flex-col gap-5 w-full max-w-[400px]  p-5 mx-auto"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-xl font-semibold text-center">Sign In</h2>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="user"
-          onChange={(e) => setUserName(e.target.value)}
-          required
-          className="border-gray-400 border p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
-        />
-      </div>
-      <div className="flex flex-col gap-2 relative">
-        <label htmlFor="password">Password</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={6}
-          className="border-gray-400 border p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
-        />
-        <div
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-2 top-10 cursor-pointer text-gray-600 hover:text-gray-800"
-        >
-          {showPassword ? (
-            <>
+      <h2 className="text-xl font-semibold text-center mb-4">Sign In</h2>
+
+      <div className="flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-4">
+        <div className="flex flex-col gap-2 md:col-span-2">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="user"
+            onChange={(e) => setUserName(e.target.value)}
+            required
+            className="border-gray-400 border p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 w-full"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 md:col-span-2 relative">
+          <label htmlFor="password">Password</label>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+            className="border-gray-400 border p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 w-full"
+          />
+          <div
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-2 top-10 cursor-pointer text-gray-600 hover:text-gray-800"
+          >
+            {showPassword ? (
               <AiOutlineEyeInvisible size={20} />
-            </>
-          ) : (
-            <>
+            ) : (
               <AiOutlineEye size={20} />
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
-      <button className="bg-blue-500 p-2 text-white rounded-sm shadow-md hover:opacity-75">
+
+      <button className="bg-blue-500 p-2 text-white rounded-sm shadow-md hover:opacity-75 mt-4 w-full">
         Sign In
       </button>
-      <p className="text-center text-sm text-gray-500">
+
+      <p className="text-center text-sm text-gray-500 mt-2">
         Don’t have an account?{" "}
         <span
           onClick={() => setRegister("signup")}
