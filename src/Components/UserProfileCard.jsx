@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../Context/AppContext";
 
 const UserProfileCard = () => {
+  const { currentUser } = useContext(AppContext);
+  const username = currentUser ? currentUser.username : "currentuser";
   return (
     <div className="flex justify-center items-center flex-col space-y-4 p-3 ">
       <div className="overflow-hidden rounded-full">
         <img
-          src="/user.png"
+          src={
+            currentUser.avatar
+              ? URL.createObjectURL(currentUser.avatar)
+              : "/user.png"
+          }
           alt="user avater"
           className="w-16 h-16 transition-all duration-200 hover:cursor-pointer hover:scale-110"
         />
       </div>
       <div className="text-center">
-        <h3 className="font-semibold">John Doe</h3>
-        <p className="text-sm text-gray-500">Feeling happy 😊</p>
-        <p className="text-xs text-gray-400 mt-1">Posts: 42 | Reactions: 120</p>
+        <h3 className="font-semibold">{username}</h3>
+        <p className="text-sm text-gray-500">{currentUser.status}</p>
       </div>
     </div>
   );

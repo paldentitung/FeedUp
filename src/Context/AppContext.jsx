@@ -16,10 +16,19 @@ export const AppProvider = ({ children }) => {
   const [register, setRegister] = useState("signin");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Toggle theme
+  // NEW: current user state
+  const [currentUser, setCurrentUser] = useState({
+    username: "",
+    fullname: "",
+    email: "",
+    bio: "",
+    status: "",
+    avatar: null,
+    password: "",
+  });
+
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
 
-  // Add/remove friend
   const toggleFriends = (userId) => {
     setFriend((prev) =>
       prev.includes(userId)
@@ -28,15 +37,14 @@ export const AppProvider = ({ children }) => {
     );
   };
 
-  // Add a new post
   const handleAddPost = (newPost) => {
     setPosts((prev) => [newPost, ...prev]);
   };
 
-  // handleLogIn
-  const handleLogIn = (value) => {
+  const handleLogIn = (value, userData = null) => {
     setLogIn(value);
     localStorage.setItem("logIn", value);
+    if (userData) setCurrentUser(userData); // save user info
   };
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
@@ -63,7 +71,8 @@ export const AppProvider = ({ children }) => {
         setLogIn,
         handleLogIn,
         setShowModal,
-
+        currentUser,
+        setCurrentUser,
         setSearchTerm,
         searchTerm,
       }}

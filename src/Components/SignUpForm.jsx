@@ -27,7 +27,18 @@ const SignUpForm = ({ setRegister }) => {
       alert("Passwords do not match");
       return;
     }
-    handleLogIn(true);
+
+    // Pass all user info to context
+    handleLogIn(true, {
+      username,
+      fullname,
+      email,
+      bio,
+      status,
+      avatar,
+      password,
+    });
+
     navigator("/");
   };
 
