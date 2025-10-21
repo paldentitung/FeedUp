@@ -4,7 +4,7 @@ import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 const AddPostForm = () => {
-  const { handleAddPost } = useContext(AppContext);
+  const { handleAddPost, currentUser } = useContext(AppContext);
   const navigator = useNavigate();
   const [formData, setFormData] = useState({
     content: "",
@@ -112,21 +112,20 @@ const AddPostForm = () => {
       </h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         {/* Username */}
-        <div>
+        <div className="flex gap-1 items-center">
+          <div>
+            <img
+              src={currentUser.avatar}
+              alt={`${currentUser.name}- image`}
+              className="w-10 h-10 rounded-full"
+            />
+          </div>
           <label
             htmlFor="username"
-            className="block text-sm font-medium text-gray-700"
+            className="block   text-lg font-semibold text-gray-700"
           >
-            Username
+            {currentUser.username}
           </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value="CurrentUser"
-            readOnly
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 p-2"
-          />
         </div>
 
         {/* Content */}
