@@ -42,6 +42,17 @@ const SignUpForm = ({ setRegister }) => {
     navigator("/");
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result); // Base64 string
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <form className="bg-white w-full  mx-auto" onSubmit={handleSubmit}>
       <h2 className="text-xl font-semibold text-center mb-6">Sign Up</h2>
@@ -152,7 +163,7 @@ const SignUpForm = ({ setRegister }) => {
             type="file"
             name="avatar"
             accept="image/*"
-            onChange={(e) => setAvatar(e.target.files[0])}
+            onChange={handleAvatarChange}
             className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 cursor-pointer"
           />
         </div>

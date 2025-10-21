@@ -17,14 +17,10 @@ export const AppProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // NEW: current user state
-  const [currentUser, setCurrentUser] = useState({
-    username: "",
-    fullname: "",
-    email: "",
-    bio: "",
-    status: "",
-    avatar: null,
-    password: "",
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem("currentUser");
+
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
   const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
@@ -44,7 +40,8 @@ export const AppProvider = ({ children }) => {
   const handleLogIn = (value, userData = null) => {
     setLogIn(value);
     localStorage.setItem("logIn", value);
-    if (userData) setCurrentUser(userData); // save user info
+    if (userData) setCurrentUser(userData);
+    localStorage.setItem("currentUser", JSON.stringify(userData)); // save user info
   };
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
