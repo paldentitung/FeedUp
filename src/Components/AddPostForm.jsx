@@ -69,8 +69,8 @@ const AddPostForm = () => {
 
     const newPost = {
       id: Date.now(),
-      username: "CurrentUser",
-      avatar: "/user.png",
+      username: currentUser.username,
+      avatar: currentUser.avatar,
       timestamp: "Just now",
       moodTag: formData.mood,
       moodTagColor: formData.moodColor,

@@ -73,9 +73,39 @@ const PostCard = ({ post, showComment = false }) => {
 
   const handleShare = () => {
     const url = `${window.location.origin}/post/${slug}`;
-    navigator.clipboard.writeText(url);
-    setShareCount((prev) => prev + 1);
-    alert("Post URL copied to clipboard!");
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      // Modern browsers
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          alert("Post URL copied to clipboard!");
+          setShareCount((prev) => prev + 1);
+        })
+        .catch((err) => {
+          console.error("Clipboard write failed:", err);
+          fallbackCopyText(url);
+        });
+    } else {
+      // Fallback
+      fallbackCopyText(url);
+    }
+  };
+
+  const fallbackCopyText = (text) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand("copy");
+      alert("Post URL copied to clipboard!");
+      setShareCount((prev) => prev + 1);
+    } catch (err) {
+      console.error("Fallback copy failed:", err);
+      alert("Could not copy URL.");
+    }
+    document.body.removeChild(textArea);
   };
 
   const navigator = useNavigate();
