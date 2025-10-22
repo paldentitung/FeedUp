@@ -8,10 +8,13 @@ import UserProfilePage from "./Pages/UserProfilePage";
 import Register from "./Pages/Register";
 import CurrentUserPage from "./Pages/CurrentUserPage";
 import HashtagPosts from "./Pages/HashtagPosts";
+import ScrollToTop from "./Components/ScrollToTop";
 const App = () => {
   return (
     <>
       <div className="bg-gray-50">
+        <ScrollToTop />
+
         <Routes>
           <Route
             path="/"
