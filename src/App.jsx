@@ -7,6 +7,7 @@ import PostDetailPage from "./Pages/PostDetailPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import Register from "./Pages/Register";
 import CurrentUserPage from "./Pages/CurrentUserPage";
+import HashtagPosts from "./Pages/HashtagPosts";
 const App = () => {
   return (
     <>
@@ -49,6 +50,14 @@ const App = () => {
             element={
               <MainLayout>
                 <CurrentUserPage />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/hashtag/:hashTag"
+            element={
+              <MainLayout>
+                <HashtagPosts />
               </MainLayout>
             }
           />

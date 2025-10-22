@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 const PostCard = ({ post, showComment = false }) => {
   const {
@@ -78,6 +78,7 @@ const PostCard = ({ post, showComment = false }) => {
     alert("Post URL copied to clipboard!");
   };
 
+  const navigator = useNavigate();
   return (
     <section className="bg-white shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 ">
       <div className="flex flex-col gap-3">
@@ -187,14 +188,14 @@ const PostCard = ({ post, showComment = false }) => {
         {hashtags.length > 0 && (
           <div className="mt-1 flex flex-wrap gap-1">
             {hashtags.map((tag, index) => (
-              <a
+              <Link
                 key={index}
-                href={`/hashtag/${tag.slice(1)}`}
+                to={`/hashtag/${tag.replace("#", "")}`}
                 className="text-blue-500 text-sm hover:underline"
                 aria-label={`Hashtag ${tag}`}
               >
                 {tag}
-              </a>
+              </Link>
             ))}
           </div>
         )}

@@ -19,7 +19,7 @@ const SignInForm = ({ setRegister }) => {
     const savedUser = JSON.parse(localStorage.getItem("currentUser"));
 
     if (!savedUser) {
-      return alert("user Not Found");
+      alert("user Not Found");
       return;
     }
 
