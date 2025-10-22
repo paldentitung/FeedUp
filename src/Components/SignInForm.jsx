@@ -16,8 +16,19 @@ const SignInForm = ({ setRegister }) => {
       alert("enter valid info");
       return;
     }
-    handleLogIn(true);
-    navigator("/");
+    const savedUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!savedUser) {
+      return alert("user Not Found");
+      return;
+    }
+
+    if (savedUser.username === username && savedUser.password === password) {
+      handleLogIn(true, savedUser);
+      navigator("/");
+    } else {
+      alert("Invalid username or password");
+    }
   };
 
   return (

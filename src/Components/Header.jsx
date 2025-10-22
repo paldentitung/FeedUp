@@ -126,15 +126,20 @@ const Header = () => {
             </motion.div>
           </AnimatePresence>
         )}
-
-        <Link to="/add-post">
-          <button
-            className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all"
-            title="Add Post"
-          >
-            +
-          </button>
-        </Link>
+        {currentUser ? (
+          <>
+            <Link to="/add-post">
+              <button
+                className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white md:text-2xl rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition-all"
+                title="Add Post"
+              >
+                +
+              </button>
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
 
         {logIn ? (
           <>
