@@ -33,13 +33,16 @@ const UserProfilePage = () => {
 
   return (
     <section className="flex flex-col gap-2 md:p-6 p-3 bg-gray-100 min-h-screen">
-      <button
-        className="flex items-center gap-1  text-blue-500   p-1"
-        onClick={() => navigator(-1)}
-      >
-        <FaArrowLeft />
-        GoBack
-      </button>
+      <div>
+        {" "}
+        <button
+          onClick={() => navigator(-1)}
+          className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-all duration-200 mb-5"
+        >
+          <FaArrowLeft />
+          Go Back
+        </button>
+      </div>
       {/* Profile Info */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 p-6 bg-white rounded-xl shadow-md">
         <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
