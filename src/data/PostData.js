@@ -2,7 +2,7 @@ const postData = [
   {
     id: 1,
     slug: "aarav-shrestha-1",
-    avatar: "/avatars/user1.png",
+    avatar: "https://ui-avatars.com/api/?name=Aarav+Shrestha&background=random",
     username: "Aarav Shrestha",
     timestamp: "2 hours ago",
     moodTag: "Happy",
@@ -29,7 +29,7 @@ const postData = [
   {
     id: 2,
     slug: "bimala-thapa-2",
-    avatar: "/avatars/user2.png",
+    avatar: "https://ui-avatars.com/api/?name=Bimala+Thapa&background=random",
     username: "Bimala Thapa",
     timestamp: "4 hours ago",
     moodTag: "Excited",
@@ -59,7 +59,7 @@ const postData = [
   {
     id: 3,
     slug: "chandra-gurung-3",
-    avatar: "/avatars/user3.png",
+    avatar: "https://ui-avatars.com/api/?name=Chandra+Gurung&background=random",
     username: "Chandra Gurung",
     timestamp: "1 day ago",
     moodTag: "Relaxed",
@@ -84,7 +84,7 @@ const postData = [
   {
     id: 4,
     slug: "deepika-kc-4",
-    avatar: "/avatars/user4.png",
+    avatar: "https://ui-avatars.com/api/?name=Deepika+KC&background=random",
     username: "Deepika KC",
     timestamp: "6 hours ago",
     moodTag: "Inspired",
@@ -109,7 +109,7 @@ const postData = [
   {
     id: 5,
     slug: "eklavya-tamang-5",
-    avatar: "/avatars/user5.png",
+    avatar: "https://ui-avatars.com/api/?name=Eklavya+Tamang&background=random",
     username: "Eklavya Tamang",
     timestamp: "3 hours ago",
     moodTag: "Curious",
@@ -138,7 +138,7 @@ const postData = [
   {
     id: 6,
     slug: "fulmaya-magar-6",
-    avatar: "/avatars/user6.png",
+    avatar: "https://ui-avatars.com/api/?name=Fulmaya+Magar&background=random",
     username: "Fulmaya Magar",
     timestamp: "12 hours ago",
     moodTag: "Grateful",
@@ -170,7 +170,7 @@ const postData = [
   {
     id: 7,
     slug: "gopal-rai-7",
-    avatar: "/avatars/user7.png",
+    avatar: "https://ui-avatars.com/api/?name=Gopal+Rai&background=random",
     username: "Gopal Rai",
     timestamp: "8 hours ago",
     moodTag: "Energetic",
@@ -195,7 +195,7 @@ const postData = [
   {
     id: 8,
     slug: "hema-bhattarai-8",
-    avatar: "/avatars/user8.png",
+    avatar: "https://ui-avatars.com/api/?name=Hema+Bhattarai&background=random",
     username: "Hema Bhattarai",
     timestamp: "1 hour ago",
     moodTag: "Peaceful",
@@ -219,7 +219,8 @@ const postData = [
   {
     id: 9,
     slug: "ishwor-adhikari-9",
-    avatar: "/avatars/user9.png",
+    avatar:
+      "https://ui-avatars.com/api/?name=Ishwor+Adhikari&background=random",
     username: "Ishwor Adhikari",
     timestamp: "5 hours ago",
     moodTag: "Creative",
@@ -246,7 +247,7 @@ const postData = [
   {
     id: 10,
     slug: "janaki-poudel-10",
-    avatar: "/avatars/user10.png",
+    avatar: "https://ui-avatars.com/api/?name=Janaki+Poudel&background=random",
     username: "Janaki Poudel",
     timestamp: "10 hours ago",
     moodTag: "Joyful",
@@ -273,7 +274,7 @@ const postData = [
   {
     id: 11,
     slug: "kiran-lama-11",
-    avatar: "/avatars/user11.png",
+    avatar: "https://ui-avatars.com/api/?name=Kiran+Lama&background=random",
     username: "Kiran Lama",
     timestamp: "7 hours ago",
     moodTag: "Adventurous",
@@ -295,7 +296,7 @@ const postData = [
   {
     id: 12,
     slug: "laxmi-karki-12",
-    avatar: "/avatars/user12.png",
+    avatar: "https://ui-avatars.com/api/?name=Laxmi+Karki&background=random",
     username: "Laxmi Karki",
     timestamp: "9 hours ago",
     moodTag: "Festive",
@@ -320,7 +321,7 @@ const postData = [
   {
     id: 13,
     slug: "manoj-dhakal-13",
-    avatar: "/avatars/user13.png",
+    avatar: "https://ui-avatars.com/api/?name=Manoj+Dhakal&background=random",
     username: "Manoj Dhakal",
     timestamp: "3 hours ago",
     moodTag: "Reflective",
@@ -344,7 +345,7 @@ const postData = [
   {
     id: 14,
     slug: "nisha-bhandari-14",
-    avatar: "/avatars/user14.png",
+    avatar: "https://ui-avatars.com/api/?name=Nisha+Bhandari&background=random",
     username: "Nisha Bhandari",
     timestamp: "5 hours ago",
     moodTag: "Excited",
@@ -368,7 +369,7 @@ const postData = [
   {
     id: 15,
     slug: "om-bahadur-15",
-    avatar: "/avatars/user15.png",
+    avatar: "https://ui-avatars.com/api/?name=Om+Bahadur&background=random",
     username: "Om Bahadur",
     timestamp: "2 days ago",
     moodTag: "Curious",
@@ -390,7 +391,7 @@ const postData = [
   {
     id: 16,
     slug: "purnima-sherpa-16",
-    avatar: "/avatars/user16.png",
+    avatar: "https://ui-avatars.com/api/?name=Purnima+Sherpa&background=random",
     username: "Purnima Sherpa",
     timestamp: "8 hours ago",
     moodTag: "Happy",
@@ -413,7 +414,7 @@ const postData = [
   {
     id: 17,
     slug: "rajan-pokhrel-17",
-    avatar: "/avatars/user17.png",
+    avatar: "https://ui-avatars.com/api/?name=Rajan+Pokhrel&background=random",
     username: "Rajan Pokhrel",
     timestamp: "6 hours ago",
     moodTag: "Inspired",
@@ -435,7 +436,7 @@ const postData = [
   {
     id: 18,
     slug: "sita-khadka-18",
-    avatar: "/avatars/user18.png",
+    avatar: "https://ui-avatars.com/api/?name=Sita+Khadka&background=random",
     username: "Sita Khadka",
     timestamp: "4 hours ago",
     moodTag: "Peaceful",
@@ -458,7 +459,7 @@ const postData = [
   {
     id: 19,
     slug: "tara-subedi-19",
-    avatar: "/avatars/user19.png",
+    avatar: "https://ui-avatars.com/api/?name=Tara+Subedi&background=random",
     username: "Tara Subedi",
     timestamp: "1 day ago",
     moodTag: "Curious",
@@ -480,7 +481,7 @@ const postData = [
   {
     id: 20,
     slug: "umesh-rimal-20",
-    avatar: "/avatars/user20.png",
+    avatar: "https://ui-avatars.com/api/?name=Umesh+Rimal&background=random",
     username: "Umesh Rimal",
     timestamp: "10 hours ago",
     moodTag: "Joyful",
@@ -505,7 +506,7 @@ const postData = [
   {
     id: 21,
     slug: "bina-basnet-21",
-    avatar: "/avatars/user21.png",
+    avatar: "https://ui-avatars.com/api/?name=Bina+Basnet&background=random",
     username: "Bina Basnet",
     timestamp: "5 hours ago",
     moodTag: "Creative",
@@ -527,7 +528,7 @@ const postData = [
   {
     id: 22,
     slug: "suman-chhetri-22",
-    avatar: "/avatars/user22.png",
+    avatar: "https://ui-avatars.com/api/?name=Suman+Chhetri&background=random",
     username: "Suman Chhetri",
     timestamp: "3 hours ago",
     moodTag: "Energetic",
@@ -550,7 +551,7 @@ const postData = [
   {
     id: 23,
     slug: "anita-limbu-23",
-    avatar: "/avatars/user23.png",
+    avatar: "https://ui-avatars.com/api/?name=Anita+Limbu&background=random",
     username: "Anita Limbu",
     timestamp: "6 hours ago",
     moodTag: "Relaxed",
@@ -572,7 +573,7 @@ const postData = [
   {
     id: 24,
     slug: "prakash-dahal-24",
-    avatar: "/avatars/user24.png",
+    avatar: "https://ui-avatars.com/api/?name=Prakash+Dahal&background=random",
     username: "Prakash Dahal",
     timestamp: "12 hours ago",
     moodTag: "Grateful",
@@ -596,7 +597,7 @@ const postData = [
   {
     id: 25,
     slug: "rina-ghimire-25",
-    avatar: "/avatars/user25.png",
+    avatar: "https://ui-avatars.com/api/?name=Rina+Ghimire&background=random",
     username: "Rina Ghimire",
     timestamp: "2 hours ago",
     moodTag: "Happy",
@@ -619,7 +620,7 @@ const postData = [
   {
     id: 26,
     slug: "rina-ghimire-26",
-    avatar: "/avatars/user25.png",
+    avatar: "https://ui-avatars.com/api/?name=Rina+Ghimire&background=random",
     username: "Rina Ghimire",
     timestamp: "5 hours ago",
     moodTag: "Inspired",

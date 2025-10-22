@@ -85,7 +85,10 @@ const PostCard = ({ post, showComment = false }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <img
-              src={avatar}
+              src={
+                avatar ||
+                `https://api.dicebear.com/9.x/adventurer/svg?seed=${username}`
+              }
               alt={`${username}'s avatar`}
               className="w-7 h-7 rounded-full object-cover border border-gray-200"
             />
