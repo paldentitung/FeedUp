@@ -6,18 +6,19 @@ import PostCard from "../Components/PostCard";
 import { FaArrowLeft } from "react-icons/fa";
 
 const UserProfilePage = () => {
-  const { posts, friend, toggleFriends, theme } = useContext(AppContext);
+  const { posts, friend, toggleFriends, theme, currentUser } =
+    useContext(AppContext);
   const { username } = useParams();
   const navigate = useNavigate();
+  const selectedUser =
+    posts.find((user) => user.username === username) ||
+    (currentUser?.username === username ? currentUser : null);
 
-  const selectedUser = posts.find((user) => user.username === username);
-  const userInfo = UsersData.find(
-    (user) => user.name === selectedUser?.username
-  );
-  const userPost = posts.filter(
-    (post) => post.username === selectedUser?.username
-  );
+  const userInfo =
+    UsersData.find((user) => user.name === username) ||
+    (currentUser?.username === username ? currentUser : null);
 
+  const userPost = posts.filter((post) => post.username === username);
   if (!selectedUser)
     return (
       <p
