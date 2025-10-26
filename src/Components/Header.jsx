@@ -21,6 +21,7 @@ const Header = () => {
     setSearchTerm,
     currentUser,
     theme,
+    toggleTheme,
   } = useContext(AppContext);
   const navigate = useNavigate();
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -243,6 +244,21 @@ const Header = () => {
             onClick={toggleModal}
           >
             <FiLogOut size={25} />
+          </div>
+          {/* Theme Toggle */}
+          <div
+            onClick={toggleTheme}
+            className={`flex items-center w-16 h-8 p-1 rounded-full cursor-pointer transition-colors duration-300 ${
+              theme === "light" ? "bg-gray-300" : "bg-gray-600"
+            }`}
+          >
+            <span
+              className={`w-6 h-6 rounded-full transform transition-transform duration-300 ${
+                theme === "light"
+                  ? "translate-x-0 bg-white shadow-md"
+                  : "translate-x-8 bg-gray-900 shadow-sm"
+              }`}
+            ></span>
           </div>
         </div>
       </div>
