@@ -3,126 +3,246 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 
-const SignUpForm = ({ setRegister }) => {
+const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
+  const { theme } = useContext(AppContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [username, setUserName] = useState("");
-  const [fullname, setFullName] = useState("");
-  const [bio, setBio] = useState("");
-  const [status, setStatus] = useState("");
-  const [avatar, setAvatar] = useState(null);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const navigator = useNavigate();
-  const { handleLogIn } = useContext(AppContext);
+
+  const [username, setUserName] = useState(currentUser.username || "");
+  const [fullname, setFullName] = useState(currentUser.fullname || "");
+  const [email, setEmail] = useState(currentUser.email || "");
+  const [bio, setBio] = useState(currentUser.bio || "");
+  const [status, setStatus] = useState(currentUser.status || "");
+  const [avatar, setAvatar] = useState(currentUser.avatar || null);
+  const [password, setPassword] = useState(currentUser.password || "");
+  const [confirmPassword, setConfirmPassword] = useState(
+    currentUser.password || ""
+  );
+
+  const navigate = useNavigate();
+  const { handleLogIn, toggleModal } = useContext(AppContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !password || !email) {
-      alert("enter valid info");
-      return;
-    }
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
+
+    // Signup validations
+    if (mode === "signup") {
+      if (!username || !password || !email) {
+        alert("Enter valid info");
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      handleLogIn(true, {
+        username,
+        fullname,
+        email,
+        bio,
+        status,
+        avatar,
+        password,
+      });
+      navigate("/");
     }
 
-    // Pass all user info to context
-    handleLogIn(true, {
-      username,
-      fullname,
-      email,
-      bio,
-      status,
-      avatar,
-      password,
-    });
-
-    navigator("/");
+    // Edit mode: update user info
+    if (mode === "edit") {
+      handleLogIn(true, {
+        ...currentUser,
+        username,
+        fullname,
+        email,
+        bio,
+        status,
+        avatar,
+        password, // update password if changed
+      });
+      alert("Profile updated!");
+    }
   };
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatar(reader.result); // Base64 string
-      };
+      reader.onloadend = () => setAvatar(reader.result);
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <form className="bg-white w-full  mx-auto" onSubmit={handleSubmit}>
-      <h2 className="text-xl font-semibold text-center mb-6">Sign Up</h2>
+    <form
+      onSubmit={handleSubmit}
+      className={`max-w-2xl mx-auto px-4 py-4 space-y-4 rounded-xl shadow-md transition-colors duration-300 ${
+        theme === "light"
+          ? "bg-white text-gray-900"
+          : "bg-gray-800 text-gray-100"
+      }`}
+    >
+      <h2
+        className={`text-3xl font-bold text-center ${
+          theme === "light" ? "text-gray-800" : "text-gray-200"
+        }`}
+      >
+        {mode === "signup" ? "Create Account" : "Edit Profile"}
+      </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Avatar Upload */}
+      <div className="flex flex-col md:col-span-2">
+        <label
+          className={`font-medium ${
+            theme === "light" ? "text-gray-700" : "text-gray-300"
+          }`}
+        >
+          Profile Picture
+        </label>
+        <div className="flex justify-around flex-col md:flex-row gap-2">
+          {avatar && (
+            <img
+              src={avatar}
+              alt="Avatar Preview"
+              className={`mt-2 w-24 h-24 object-cover rounded-full border-2 ${
+                theme === "light" ? "border-gray-300" : "border-gray-600"
+              }`}
+            />
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900/30 file:text-blue-400 hover:file:bg-blue-900/50"
+            }`}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Full Name */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="fullname">Full Name</label>
+        <div className="flex flex-col">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Full Name
+          </label>
           <input
             type="text"
-            name="fullname"
             value={fullname}
             onChange={(e) => setFullName(e.target.value)}
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
+            placeholder="Enter your full name"
           />
         </div>
 
         {/* Username */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="username">Username</label>
+        <div className="flex flex-col">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Username
+          </label>
           <input
             type="text"
-            name="username"
             value={username}
             onChange={(e) => setUserName(e.target.value)}
             required
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
+            placeholder="Enter your username"
           />
         </div>
 
         {/* Email */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email">Email</label>
+        <div className="flex flex-col">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Email
+          </label>
           <input
             type="email"
-            name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
+            placeholder="Enter your email"
           />
         </div>
 
-        {/* Status / Feeling */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="status">Status / Feeling</label>
+        {/* Status */}
+        <div className="flex flex-col">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Status / Feeling
+          </label>
           <input
             type="text"
             placeholder="Feeling happy 😊"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
           />
         </div>
 
         {/* Password */}
-        <div className="flex flex-col gap-1 relative">
-          <label htmlFor="password">Password</label>
+        <div className="flex flex-col relative">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Password
+          </label>
           <input
             type={showPassword ? "text" : "password"}
-            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             minLength={6}
-            required
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 w-full"
+            required={mode === "signup"}
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
+            placeholder="Enter your password"
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-2 top-10 cursor-pointer text-gray-600 hover:text-gray-800"
+            className={`absolute right-3 top-10 cursor-pointer transition-colors duration-200 ${
+              theme === "light"
+                ? "text-gray-600 hover:text-gray-800"
+                : "text-gray-400 hover:text-gray-200"
+            }`}
+            aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? (
               <AiOutlineEyeInvisible size={20} />
@@ -133,20 +253,39 @@ const SignUpForm = ({ setRegister }) => {
         </div>
 
         {/* Confirm Password */}
-        <div className="flex flex-col gap-1 relative">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+        <div className="flex flex-col relative">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Confirm Password
+          </label>
           <input
             type={showConfirmPassword ? "text" : "password"}
-            name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             minLength={6}
-            required
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 w-full"
+            required={mode === "signup"}
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
+            placeholder="Confirm your password"
           />
           <span
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            className="absolute right-2 top-10 cursor-pointer text-gray-600 hover:text-gray-800"
+            className={`absolute right-3 top-10 cursor-pointer transition-colors duration-200 ${
+              theme === "light"
+                ? "text-gray-600 hover:text-gray-800"
+                : "text-gray-400 hover:text-gray-200"
+            }`}
+            aria-label={
+              showConfirmPassword
+                ? "Hide confirm password"
+                : "Show confirm password"
+            }
           >
             {showConfirmPassword ? (
               <AiOutlineEyeInvisible size={20} />
@@ -156,49 +295,73 @@ const SignUpForm = ({ setRegister }) => {
           </span>
         </div>
 
-        {/* Avatar Upload */}
-        <div className="flex flex-col gap-1 md:col-span-2">
-          <label htmlFor="avatar">Profile Picture</label>
-          <input
-            type="file"
-            name="avatar"
-            accept="image/*"
-            onChange={handleAvatarChange}
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 cursor-pointer"
-          />
-        </div>
-
         {/* Bio */}
-        <div className="flex flex-col gap-1 md:col-span-2">
-          <label htmlFor="bio">Bio</label>
+        <div className="flex flex-col md:col-span-2">
+          <label
+            className={`font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            Bio
+          </label>
           <textarea
-            name="bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
             placeholder="Tell something about yourself..."
-            className="border border-gray-400 p-2 rounded-md outline-0 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 resize-none"
-          ></textarea>
+            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 resize-none transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+            }`}
+          />
         </div>
       </div>
 
-      {/* Submit Button */}
       <button
         type="submit"
-        className="mt-4 bg-blue-500 p-2 text-white rounded-sm shadow-md hover:opacity-75 w-full"
+        className={`w-full py-2 rounded-lg font-semibold transition-all duration-200 shadow-md ${
+          theme === "light"
+            ? "bg-blue-500 text-white hover:bg-blue-600 hover:ring-1 hover:ring-blue-500 hover:ring-offset-white"
+            : "bg-blue-600 text-white hover:bg-blue-700 hover:ring-1 hover:ring-blue-400 hover:ring-offset-gray-800"
+        }`}
       >
-        Sign Up
+        {mode === "signup" ? "Sign Up" : "Update Profile"}
       </button>
 
-      <p className="text-center text-sm text-gray-500 mt-2">
-        Already have an account?{" "}
-        <span
-          onClick={() => setRegister("signin")}
-          className="text-blue-600 cursor-pointer hover:underline"
-        >
-          Sign In
-        </span>
-      </p>
+      <div
+        className={`text-center mt-3 ${
+          theme === "light" ? "text-gray-500" : "text-gray-400"
+        }`}
+      >
+        {mode === "signup" ? (
+          <>
+            Already have an account?{" "}
+            <span
+              onClick={() => setRegister("signin")}
+              className={`cursor-pointer hover:underline ${
+                theme === "light" ? "text-blue-600" : "text-blue-400"
+              }`}
+            >
+              Sign In
+            </span>
+          </>
+        ) : (
+          <span
+            onClick={() => {
+              console.log("clicked");
+              setRegister("signin"); // switch form
+              toggleModal(); // close modal
+            }}
+            className={`cursor-pointer hover:underline ${
+              theme === "light" ? "text-blue-600" : "text-blue-400"
+            }`}
+            aria-label="Cancel and return to sign-in"
+          >
+            Cancel
+          </span>
+        )}
+      </div>
     </form>
   );
 };

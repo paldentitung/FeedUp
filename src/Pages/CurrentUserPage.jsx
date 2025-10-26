@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import PostCard from "../Components/PostCard";
 import Button from "../Components/Button";
+import Modal from "../Components/Modal";
+import SignUpForm from "../Components/SignUpForm";
 
 const CurrentUserPage = () => {
   const { username } = useParams();
-  const { currentUser, posts, theme } = useContext(AppContext);
+  const { currentUser, posts, theme, toggleModal } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("posts");
 
-  // Optional: check if the URL username matches the logged-in user
   if (!currentUser || currentUser.username !== username) {
     return (
       <div
@@ -23,25 +24,14 @@ const CurrentUserPage = () => {
   }
 
   const currentUserPosts = posts.filter((post) => post.username === username);
-
-  if (!currentUserPosts) {
-    return (
-      <p
-        className={`text-center text-lg py-10 ${
-          theme === "light" ? "text-gray-500" : "text-gray-400"
-        }`}
-      >
-        No posts found
-      </p>
-    );
-  }
-
+  const [register, setRegister] = useState("signup");
   return (
     <section
       className={`flex flex-col w-full p-4 space-y-5 min-h-screen transition-colors duration-300 ${
         theme === "light" ? "bg-gray-100" : "bg-gray-900"
       }`}
     >
+      {/* Profile Info */}
       <div
         className={`flex flex-col p-4 rounded-lg shadow-md ${
           theme === "light" ? "bg-white" : "bg-gray-800"
@@ -85,6 +75,7 @@ const CurrentUserPage = () => {
           <div>
             <Button
               name="Edit Profile"
+              onClick={toggleModal}
               className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md ${
                 theme === "light"
                   ? "bg-blue-500 text-white hover:bg-blue-600 hover:ring-1 hover:ring-blue-500 hover:ring-offset-white"
@@ -102,6 +93,8 @@ const CurrentUserPage = () => {
           {currentUser.bio || "No bio available yet."}
         </p>
       </div>
+
+      {/* Tabs */}
       <div>
         <div
           className={`flex gap-4 border-b ${
@@ -142,6 +135,7 @@ const CurrentUserPage = () => {
           </button>
         </div>
 
+        {/* Posts Tab */}
         {activeTab === "posts" && (
           <div className="flex flex-col gap-6 mt-4 w-full">
             {currentUserPosts.length > 0 ? (
@@ -173,6 +167,7 @@ const CurrentUserPage = () => {
           </div>
         )}
 
+        {/* About Tab */}
         {activeTab === "About" && (
           <div
             className={`mt-4 p-5 rounded-lg shadow-md ${
@@ -204,7 +199,7 @@ const CurrentUserPage = () => {
                     theme === "light" ? "text-gray-800" : "text-gray-200"
                   }`}
                 >
-                  {currentUser?.fullname || "Not provided"}
+                  {currentUser.fullname || "Not provided"}
                 </p>
               </div>
               <div
@@ -224,7 +219,7 @@ const CurrentUserPage = () => {
                     theme === "light" ? "text-gray-700" : "text-gray-300"
                   }`}
                 >
-                  @{currentUser?.username || "Not provided"}
+                  @{currentUser.username || "Not provided"}
                 </p>
               </div>
               <div
@@ -244,7 +239,7 @@ const CurrentUserPage = () => {
                     theme === "light" ? "text-gray-700" : "text-gray-300"
                   }`}
                 >
-                  {currentUser?.status || "No status"}
+                  {currentUser.status || "No status"}
                 </p>
               </div>
               <div>
@@ -260,13 +255,21 @@ const CurrentUserPage = () => {
                     theme === "light" ? "text-gray-600" : "text-gray-400"
                   }`}
                 >
-                  {currentUser?.bio || "No bio available yet."}
+                  {currentUser.bio || "No bio available yet."}
                 </p>
               </div>
             </div>
           </div>
         )}
       </div>
+
+      <Modal>
+        <SignUpForm
+          currentUser={currentUser}
+          mode="edit"
+          setRegister={setRegister}
+        />
+      </Modal>
     </section>
   );
 };
