@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 
@@ -20,24 +20,86 @@ const PostCard = ({ post, showComment = false }) => {
     slug,
   } = post;
 
-  // Load initial like state from localStorage
-  const savedLikes = JSON.parse(localStorage.getItem("likedPosts")) || {};
-  const [isLiked, setIsLiked] = useState(savedLikes[id] || false);
-  const [likeCount, setLikeCount] = useState(
-    reactions.like + (savedLikes[id] ? 1 : 0)
-  );
+  // Load initial reaction state from localStorage
+  const savedReactions =
+    JSON.parse(localStorage.getItem("postReactions")) || {};
+  const initialReaction = savedReactions[id] || null;
+  const [userReaction, setUserReaction] = useState(initialReaction);
+  const [reactionCounts, setReactionCounts] = useState({
+    like: reactions.like + (initialReaction === "like" ? 1 : 0),
+    love: reactions.love + (initialReaction === "love" ? 1 : 0),
+    wow: reactions.wow + (initialReaction === "wow" ? 1 : 0),
+    haha: reactions.haha + (initialReaction === "haha" ? 1 : 0),
+    yum: reactions.yum + (initialReaction === "yum" ? 1 : 0),
+    question: reactions.question + (initialReaction === "question" ? 1 : 0),
+    clap: reactions.clap + (initialReaction === "clap" ? 1 : 0),
+    calm: reactions.calm + (initialReaction === "calm" ? 1 : 0),
+    dance: reactions.dance + (initialReaction === "dance" ? 1 : 0),
+  });
+  const [showReactionPicker, setShowReactionPicker] = useState(false);
+  const reactionPickerRef = useRef(null);
 
-  // Fix: use 'images' from post, not 'image'
-  const showImages = images.length > 4 ? images.slice(0, 4) : images;
+  // Reaction options
+  const reactionOptions = [
+    { type: "like", emoji: "👍", label: "Like" },
+    { type: "love", emoji: "❤️", label: "Love" },
+    { type: "wow", emoji: "😲", label: "Wow" },
+    { type: "haha", emoji: "😂", label: "Haha" },
+    { type: "yum", emoji: "😋", label: "Yum" },
+    { type: "question", emoji: "❓", label: "Question" },
+    { type: "clap", emoji: "👏", label: "Clap" },
+    { type: "calm", emoji: "🧘", label: "Calm" },
+    { type: "dance", emoji: "🕺", label: "Dance" },
+  ];
 
-  // Handle like toggle and update count
-  const handleLike = () => {
-    const newLiked = !isLiked;
-    const updatedLikes = { ...savedLikes, [id]: newLiked };
-    localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
-    setIsLiked(newLiked);
-    setLikeCount((prev) => (newLiked ? prev + 1 : prev - 1));
+  // Handle reaction selection
+  const handleReaction = (reactionType) => {
+    const previousReaction = userReaction;
+    const newReaction = userReaction === reactionType ? null : reactionType;
+
+    // Update localStorage
+    const updatedReactions = { ...savedReactions, [id]: newReaction };
+    localStorage.setItem("postReactions", JSON.stringify(updatedReactions));
+
+    // Update state
+    setUserReaction(newReaction);
+    setReactionCounts((prev) => {
+      const newCounts = { ...prev };
+      if (previousReaction) {
+        newCounts[previousReaction] = Math.max(
+          0,
+          newCounts[previousReaction] - 1
+        );
+      }
+      if (newReaction) {
+        newCounts[newReaction] = (newCounts[newReaction] || 0) + 1;
+      }
+      return newCounts;
+    });
+    setShowReactionPicker(false);
   };
+
+  // Toggle reaction picker
+  const toggleReactionPicker = () => {
+    setShowReactionPicker((prev) => !prev);
+  };
+
+  // Close reaction picker when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        reactionPickerRef.current &&
+        !reactionPickerRef.current.contains(event.target)
+      ) {
+        setShowReactionPicker(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Fix: use 'images' from post
+  const showImages = images.length > 4 ? images.slice(0, 4) : images;
 
   // Comment handling
   const [commentList, setCommentList] = useState(
@@ -99,7 +161,7 @@ const PostCard = ({ post, showComment = false }) => {
 
   return (
     <section
-      className={`shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 transition-colors duration-300 ${
+      className={`shadow-md max-w-full rounded-lg p-3 md:p-6 mb-2 transition-colors duration-300 custom-scrollbar ${
         theme === "light"
           ? "bg-white text-gray-900"
           : "bg-gray-800 text-gray-100"
@@ -242,18 +304,18 @@ const PostCard = ({ post, showComment = false }) => {
             theme === "light" ? "text-gray-500" : "text-gray-400"
           }`}
         >
-          <div className="flex gap-1 items-center">
-            {likeCount > 0 && <span>👍 {likeCount}</span>}
-            {reactions.love > 0 && <span>❤️ {reactions.love}</span>}
-            {reactions.wow > 0 && <span>😲 {reactions.wow}</span>}
-            {reactions.haha > 0 && <span>😂 {reactions.haha}</span>}
-            {reactions.yum > 0 && <span>😋 {reactions.yum}</span>}
-            {reactions.question > 0 && <span>❓ {reactions.question}</span>}
-            {reactions.clap > 0 && <span>👏 {reactions.clap}</span>}
-            {reactions.calm > 0 && <span>🧘 {reactions.calm}</span>}
-            {reactions.dance > 0 && <span>🕺 {reactions.dance}</span>}
-          </div>
-          <span>💬 {commentCount}</span>
+          {reactionCounts.like > 0 && <span>👍 {reactionCounts.like}</span>}
+          {reactionCounts.love > 0 && <span>❤️ {reactionCounts.love}</span>}
+          {reactionCounts.wow > 0 && <span>😲 {reactionCounts.wow}</span>}
+          {reactionCounts.haha > 0 && <span>😂 {reactionCounts.haha}</span>}
+          {reactionCounts.yum > 0 && <span>😋 {reactionCounts.yum}</span>}
+          {reactionCounts.question > 0 && (
+            <span>❓ {reactionCounts.question}</span>
+          )}
+          {reactionCounts.clap > 0 && <span>👏 {reactionCounts.clap}</span>}
+          {reactionCounts.calm > 0 && <span>🧘 {reactionCounts.calm}</span>}
+          {reactionCounts.dance > 0 && <span>🕺 {reactionCounts.dance}</span>}
+          <span>💬 {commentCount + commentList.length}</span>
           <span>↗️ {shareCount}</span>
         </div>
         {/* Action Buttons */}
@@ -262,23 +324,58 @@ const PostCard = ({ post, showComment = false }) => {
             theme === "light" ? "border-gray-200" : "border-gray-600"
           }`}
         >
-          <button
-            onClick={handleLike}
-            className={`px-1.5 py-0.5 text-sm rounded-md transition-all duration-300 ${
-              isLiked
-                ? theme === "light"
-                  ? "text-blue-500 font-semibold bg-blue-100"
-                  : "text-blue-400 font-semibold bg-blue-900/30"
-                : theme === "light"
-                ? "text-gray-600 hover:text-blue-500 hover:bg-blue-100"
-                : "text-gray-400 hover:text-blue-400 hover:bg-blue-900/30"
-            }`}
-            aria-label={
-              isLiked ? `Unlike ${username}'s post` : `Like ${username}'s post`
-            }
-          >
-            👍 {isLiked ? "Liked" : "Like"}
-          </button>
+          <div className="relative" ref={reactionPickerRef}>
+            <button
+              onClick={toggleReactionPicker}
+              className={`px-1.5 py-0.5 text-sm rounded-md transition-all duration-300 ${
+                userReaction
+                  ? theme === "light"
+                    ? "text-blue-500 font-semibold bg-blue-100"
+                    : "text-blue-400 font-semibold bg-blue-900/30"
+                  : theme === "light"
+                  ? "text-gray-600 hover:text-blue-500 hover:bg-blue-100"
+                  : "text-gray-400 hover:text-blue-400 hover:bg-blue-900/30"
+              }`}
+              aria-label={
+                userReaction
+                  ? `Change or remove reaction to ${username}'s post`
+                  : `React to ${username}'s post`
+              }
+            >
+              {userReaction
+                ? reactionOptions.find((r) => r.type === userReaction)?.emoji +
+                  " " +
+                  reactionOptions.find((r) => r.type === userReaction)?.label
+                : "👍 Like"}
+            </button>
+            {showReactionPicker && (
+              <div
+                className={`absolute z-10 left-0 -top-12 flex gap-2 p-2 rounded-md shadow-md ${
+                  theme === "light" ? "bg-white" : "bg-gray-700"
+                }`}
+              >
+                {reactionOptions.map((reaction) => (
+                  <button
+                    key={reaction.type}
+                    onClick={() => handleReaction(reaction.type)}
+                    className={`text-lg p-1 rounded-full transition-all duration-200 ${
+                      userReaction === reaction.type
+                        ? theme === "light"
+                          ? "bg-blue-100 text-blue-500"
+                          : "bg-blue-900/30 text-blue-400"
+                        : theme === "light"
+                        ? "hover:bg-blue-100 hover:text-blue-500"
+                        : "hover:bg-blue-900/30 hover:text-blue-400"
+                    }`}
+                    aria-label={`React with ${reaction.label}`}
+                    title={reaction.label}
+                  >
+                    {reaction.emoji}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <Link to={`/post/${slug}`}>
             <button
               className={`px-1.5 py-0.5 text-sm rounded-md transition-all duration-300 ${
@@ -304,7 +401,7 @@ const PostCard = ({ post, showComment = false }) => {
           </button>
         </div>
         {showComment && (
-          <div className="flex flex-col gap-3 rounded-lg">
+          <div className="flex flex-col gap-3 rounded-lg max-h-96 overflow-y-auto custom-scrollbar">
             <div
               className={`flex flex-col gap-4 p-4 rounded-lg shadow-md ${
                 theme === "light" ? "bg-white" : "bg-gray-700"
