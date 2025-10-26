@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./Pages/Home";
@@ -9,10 +9,12 @@ import Register from "./Pages/Register";
 import CurrentUserPage from "./Pages/CurrentUserPage";
 import HashtagPosts from "./Pages/HashtagPosts";
 import ScrollToTop from "./Components/ScrollToTop";
+import { AppContext } from "./Context/AppContext";
 const App = () => {
+  const { theme } = useContext(AppContext);
   return (
     <>
-      <div className="bg-gray-50">
+      <div className={` ${theme === "light" ? "bg-gray-50" : "bg-gray-900"}`}>
         <ScrollToTop />
 
         <Routes>

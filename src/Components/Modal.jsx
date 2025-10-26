@@ -3,7 +3,7 @@ import { AppContext } from "../Context/AppContext";
 import { FaTimes } from "react-icons/fa";
 
 const Modal = ({ children }) => {
-  const { showModal, toggleModal } = useContext(AppContext);
+  const { showModal, toggleModal, theme } = useContext(AppContext);
 
   useEffect(() => {
     if (showModal) {
@@ -29,13 +29,27 @@ const Modal = ({ children }) => {
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-[9999] flex justify-center items-center">
+    <div
+      className={`fixed inset-0 z-[9999] flex justify-center items-center transition-all duration-300 ${
+        theme === "light" ? "bg-black/50" : "bg-black/60"
+      }`}
+    >
       {/* Modal content */}
-      <div className="relative bg-white rounded-lg p-6 shadow-lg">
+      <div
+        className={`relative rounded-lg p-6 shadow-lg max-w-[90vw] max-h-[90vh] overflow-auto ${
+          theme === "light"
+            ? "bg-white text-gray-900"
+            : "bg-gray-800 text-gray-100"
+        }`}
+      >
         {/* Close button */}
         <button
           onClick={toggleModal}
-          className="absolute top-3 right-3 text-gray-600 hover:text-gray-800"
+          className={`absolute top-3 right-3 transition-colors duration-200 ${
+            theme === "light"
+              ? "text-gray-600 hover:text-gray-800"
+              : "text-gray-400 hover:text-gray-200"
+          }`}
         >
           <FaTimes size={20} />
         </button>

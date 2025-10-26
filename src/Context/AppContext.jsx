@@ -23,7 +23,9 @@ export const AppProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const toggleTheme = (prev) => setTheme(prev === "light" ? "dark" : "light");
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   const toggleFriends = (userId) => {
     setFriend((prev) =>
@@ -72,6 +74,8 @@ export const AppProvider = ({ children }) => {
         setCurrentUser,
         setSearchTerm,
         searchTerm,
+        toggleTheme,
+        theme,
       }}
     >
       {children}
