@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import PostCard from "../Components/PostCard";
 import Button from "../Components/Button";
 import Modal from "../Components/Modal";
 import SignUpForm from "../Components/SignUpForm";
-
+import { FaArrowLeft } from "react-icons/fa";
 const CurrentUserPage = () => {
   const { username } = useParams();
   const { currentUser, posts, theme, toggleModal } = useContext(AppContext);
@@ -25,12 +25,27 @@ const CurrentUserPage = () => {
 
   const currentUserPosts = posts.filter((post) => post.username === username);
   const [register, setRegister] = useState("signup");
+  const navigate = useNavigate();
   return (
     <section
       className={`flex flex-col w-full p-4 space-y-5 min-h-screen transition-colors duration-300 ${
         theme === "light" ? "bg-gray-100" : "bg-gray-900"
       }`}
     >
+      <div>
+        <button
+          onClick={() => navigate(-1)}
+          className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all duration-200 ${
+            theme === "light"
+              ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+              : "bg-blue-900/30 text-blue-400 hover:bg-blue-900/50"
+          } mb-3`}
+          aria-label="Go back"
+        >
+          <FaArrowLeft />
+          Go Back
+        </button>
+      </div>
       {/* Profile Info */}
       <div
         className={`flex flex-col p-4 rounded-lg shadow-md ${
