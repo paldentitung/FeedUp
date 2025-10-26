@@ -3,9 +3,10 @@ import Button from "./Button";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+
 const AddPostForm = () => {
-  const { handleAddPost, currentUser } = useContext(AppContext);
-  const navigator = useNavigate();
+  const { handleAddPost, currentUser, theme } = useContext(AppContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     content: "",
     mood: "",
@@ -14,7 +15,7 @@ const AddPostForm = () => {
     hashtags: [],
   });
 
-  //   handle change
+  // Handle change
   const handleInputChange = (event) => {
     const { name, files, value } = event.target;
 
@@ -30,7 +31,7 @@ const AddPostForm = () => {
     } else if (name === "hashtags") {
       setFormData((prev) => ({
         ...prev,
-        hashtags: value.split(/[ ,]+/),
+        hashtags: value.split(/[ ,]+/).filter((tag) => tag.trim() !== ""),
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -80,7 +81,7 @@ const AddPostForm = () => {
       reactions: { like: 0, love: 0, haha: 0 },
       comments: 0,
       shares: 0,
-      slug, // <-- add slug here
+      slug,
     };
 
     handleAddPost(newPost);
@@ -94,45 +95,65 @@ const AddPostForm = () => {
       hashtags: [],
     });
 
-    navigator("/");
+    navigate("/");
   };
 
   return (
-    <div className="   p-4 bg-white rounded-lg shadow-md">
+    <div
+      className={`p-4 rounded-lg shadow-md w-full mx-auto ${
+        theme === "light"
+          ? "bg-white text-gray-900"
+          : "bg-gray-800 text-gray-100"
+      } transition-colors duration-300`}
+    >
       <button
-        onClick={() => navigator(-1)}
-        className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-all duration-200 mb-5"
+        onClick={() => navigate(-1)}
+        className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all duration-200 ${
+          theme === "light"
+            ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+            : "bg-blue-900/30 text-blue-400 hover:bg-blue-900/50"
+        } mb-5`}
+        aria-label="Go back"
       >
         <FaArrowLeft />
         Go Back
       </button>
 
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+      <h2
+        className={`text-2xl font-semibold mb-4 ${
+          theme === "light" ? "text-gray-800" : "text-gray-200"
+        }`}
+      >
         Create a New Post
       </h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         {/* Username */}
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-2 items-center">
           <div>
             <img
-              src={currentUser.avatar}
-              alt={`${currentUser.name}- image`}
-              className="w-10 h-10 rounded-full"
+              src={currentUser.avatar || "/user.png"}
+              alt={`${currentUser.username}'s avatar`}
+              className={`w-10 h-10 rounded-full object-cover border ${
+                theme === "light" ? "border-gray-200" : "border-gray-600"
+              }`}
             />
           </div>
-          <label
-            htmlFor="username"
-            className="block   text-lg font-semibold text-gray-700"
+          <span
+            className={`text-lg font-semibold ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
           >
             {currentUser.username}
-          </label>
+          </span>
         </div>
 
         {/* Content */}
         <div>
           <label
             htmlFor="content"
-            className="block text-sm font-medium text-gray-700"
+            className={`block text-sm font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
           >
             What's on your mind?
           </label>
@@ -143,7 +164,11 @@ const AddPostForm = () => {
             maxLength={500}
             value={formData.content}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
+            className={`mt-1 block w-full rounded-md shadow-sm focus:ring-2 p-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:border-blue-400 focus:ring-blue-400"
+            }`}
             placeholder="Share your thoughts..."
           />
         </div>
@@ -152,17 +177,24 @@ const AddPostForm = () => {
         <div>
           <label
             htmlFor="moodTag"
-            className="block text-sm font-medium text-gray-700"
+            className={`block text-sm font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
           >
             Mood
           </label>
           <select
             id="moodTag"
-            name="moodTag"
+            name="mood"
             value={formData.mood}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
+            className={`mt-1 block w-full rounded-md shadow-sm focus:ring-2 p-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:border-blue-400 focus:ring-blue-400"
+            }`}
           >
+            <option value="">Select a mood</option>
             <option value="Happy">Happy</option>
             <option value="Excited">Excited</option>
             <option value="Relaxed">Relaxed</option>
@@ -180,17 +212,24 @@ const AddPostForm = () => {
         <div>
           <label
             htmlFor="moodTagColor"
-            className="block text-sm font-medium text-gray-700"
+            className={`block text-sm font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
           >
             Mood Color
           </label>
           <select
             id="moodTagColor"
-            name="moodTagColor"
+            name="moodColor"
             value={formData.moodColor}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
+            className={`mt-1 block w-full rounded-md shadow-sm focus:ring-2 p-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:border-blue-400 focus:ring-blue-400"
+            }`}
           >
+            <option value="">Select a color</option>
             <option value="bg-green-200 text-gray-800">Green (Happy)</option>
             <option value="bg-orange-200 text-gray-800">
               Orange (Excited)
@@ -214,7 +253,9 @@ const AddPostForm = () => {
         <div>
           <label
             htmlFor="images"
-            className="block text-sm font-medium text-gray-700"
+            className={`block text-sm font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
           >
             Upload Images
           </label>
@@ -225,7 +266,11 @@ const AddPostForm = () => {
             accept="image/png, image/jpeg"
             onChange={handleInputChange}
             multiple
-            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+            className={`mt-1 block w-full text-sm transition-colors duration-200 ${
+              theme === "light"
+                ? "text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                : "text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900/30 file:text-blue-400 hover:file:bg-blue-900/50"
+            }`}
           />
         </div>
 
@@ -233,7 +278,9 @@ const AddPostForm = () => {
         <div>
           <label
             htmlFor="hashtags"
-            className="block text-sm font-medium text-gray-700"
+            className={`block text-sm font-medium ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
           >
             Hashtags
           </label>
@@ -243,14 +290,26 @@ const AddPostForm = () => {
             name="hashtags"
             value={formData.hashtags.join(" ")}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
+            className={`mt-1 block w-full rounded-md shadow-sm focus:ring-2 p-2 transition-colors duration-200 ${
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-400"
+                : "border-gray-600 bg-gray-800 text-gray-100 focus:border-blue-400 focus:ring-blue-400 placeholder-gray-400"
+            }`}
             placeholder="#Nepal #Travel"
           />
         </div>
 
         {/* Submit Button */}
         <div>
-          <Button name="Post" type="submit" />
+          <Button
+            name="Post"
+            type="submit"
+            className={`w-full py-2 rounded-md font-medium transition-all duration-200 ${
+              theme === "light"
+                ? "bg-blue-500 text-white hover:bg-blue-600 hover:ring-1 hover:ring-blue-500 hover:ring-offset-white"
+                : "bg-blue-600 text-white hover:bg-blue-700 hover:ring-1 hover:ring-blue-400 hover:ring-offset-gray-800"
+            }`}
+          />
         </div>
       </form>
     </div>

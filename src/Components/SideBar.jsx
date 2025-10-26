@@ -34,7 +34,7 @@ const SideBar = () => {
         <TrendingTags />
         <SuggestedUsers />
         <div
-          className={`p-4 mx-auto mt-10 cursor-pointer ${
+          className={`p-4  mt-10 cursor-pointer ${
             theme === "light"
               ? "text-gray-600 hover:text-blue-500"
               : "text-gray-300 hover:text-blue-400"
