@@ -57,7 +57,6 @@ export const AppProvider = ({ children }) => {
         friend,
         setFriend,
         toggleFriends,
-        setShowSidebar,
         showSidebar,
         toggleSidebar,
         posts,
@@ -69,13 +68,11 @@ export const AppProvider = ({ children }) => {
         logIn,
         setLogIn,
         handleLogIn,
-        setShowModal,
         currentUser,
         setCurrentUser,
-        setSearchTerm,
         searchTerm,
+        setSearchTerm,
         toggleTheme,
-        theme,
       }}
     >
       {children}

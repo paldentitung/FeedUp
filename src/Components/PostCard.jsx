@@ -180,6 +180,7 @@ const PostCard = ({ post, showComment = false }) => {
               className={`w-7 h-7 rounded-full object-cover border ${
                 theme === "light" ? "border-gray-200" : "border-gray-600"
               }`}
+              loading="lazy"
             />
             <div className="flex flex-col">
               <div className="flex items-center gap-1">
@@ -214,6 +215,7 @@ const PostCard = ({ post, showComment = false }) => {
                 <img
                   src={images[0]}
                   alt={`Post ${id} image 1`}
+                  loading="lazy"
                   className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover rounded-md"
                 />
               )}
@@ -226,6 +228,7 @@ const PostCard = ({ post, showComment = false }) => {
                       key={idx}
                       src={img}
                       alt={`Post ${id} image ${idx + 1}`}
+                      loading="lazy"
                       className="w-full h-36 sm:h-48 md:h-56 lg:h-64 object-cover rounded-md"
                     />
                   ))}
@@ -238,16 +241,19 @@ const PostCard = ({ post, showComment = false }) => {
                   <img
                     src={images[0]}
                     alt={`Post ${id} image 1`}
+                    loading="lazy"
                     className="row-span-2 w-full h-full object-cover rounded-md"
                   />
                   <img
                     src={images[1]}
                     alt={`Post ${id} image 2`}
+                    loading="lazy"
                     className="w-full h-28 sm:h-32 md:h-40 lg:h-48 object-cover rounded-md"
                   />
                   <img
                     src={images[2]}
                     alt={`Post ${id} image 3`}
+                    loading="lazy"
                     className="w-full h-28 sm:h-32 md:h-40 lg:h-48 object-cover rounded-md"
                   />
                 </div>
@@ -261,6 +267,7 @@ const PostCard = ({ post, showComment = false }) => {
                       <img
                         src={img}
                         alt={`Post ${id} image ${idx + 1}`}
+                        loading="lazy"
                         className="w-full h-36 sm:h-48 md:h-56 lg:h-64 object-cover rounded-md"
                       />
                       {idx === arr.length - 1 && images.length > 4 && (

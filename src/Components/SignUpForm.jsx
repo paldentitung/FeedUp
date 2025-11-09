@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 
 const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
-  const { theme } = useContext(AppContext);
+  const { theme, handleLogIn, toggleModal } = useContext(AppContext);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -20,13 +21,12 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
   );
 
   const navigate = useNavigate();
-  const { handleLogIn, toggleModal } = useContext(AppContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Signup validations
     if (mode === "signup") {
+      // Signup validations
       if (!username || !password || !email) {
         alert("Enter valid info");
         return;
@@ -46,10 +46,8 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
         password,
       });
       navigate("/");
-    }
-
-    // Edit mode: update user info
-    if (mode === "edit") {
+    } else if (mode === "edit") {
+      // Edit profile
       handleLogIn(true, {
         ...currentUser,
         username,
@@ -58,9 +56,10 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
         bio,
         status,
         avatar,
-        password, // update password if changed
+        password,
       });
       alert("Profile updated!");
+      toggleModal();
     }
   };
 
@@ -76,7 +75,7 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`max-w-2xl mx-auto px-4 py-4 space-y-4 rounded-xl shadow-md transition-colors duration-300 ${
+      className={`max-w-2xl mx-auto px-4 py-4 space-y-4 rounded-xl  transition-colors duration-300 ${
         theme === "light"
           ? "bg-white text-gray-900"
           : "bg-gray-800 text-gray-100"
@@ -122,8 +121,8 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
         </div>
       </div>
 
+      {/* Form Fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Full Name */}
         <div className="flex flex-col">
           <label
             className={`font-medium ${
@@ -145,7 +144,6 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
           />
         </div>
 
-        {/* Username */}
         <div className="flex flex-col">
           <label
             className={`font-medium ${
@@ -168,7 +166,6 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
           />
         </div>
 
-        {/* Email */}
         <div className="flex flex-col">
           <label
             className={`font-medium ${
@@ -191,7 +188,6 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
           />
         </div>
 
-        {/* Status */}
         <div className="flex flex-col">
           <label
             className={`font-medium ${
@@ -237,12 +233,11 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
-            className={`absolute right-3 top-10 cursor-pointer transition-colors duration-200 ${
+            className={`absolute right-3 top-10 cursor-pointer ${
               theme === "light"
                 ? "text-gray-600 hover:text-gray-800"
                 : "text-gray-400 hover:text-gray-200"
             }`}
-            aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? (
               <AiOutlineEyeInvisible size={20} />
@@ -253,47 +248,44 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
         </div>
 
         {/* Confirm Password */}
-        <div className="flex flex-col relative">
-          <label
-            className={`font-medium ${
-              theme === "light" ? "text-gray-700" : "text-gray-300"
-            }`}
-          >
-            Confirm Password
-          </label>
-          <input
-            type={showConfirmPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            minLength={6}
-            required={mode === "signup"}
-            className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
-              theme === "light"
-                ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
-                : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
-            }`}
-            placeholder="Confirm your password"
-          />
-          <span
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            className={`absolute right-3 top-10 cursor-pointer transition-colors duration-200 ${
-              theme === "light"
-                ? "text-gray-600 hover:text-gray-800"
-                : "text-gray-400 hover:text-gray-200"
-            }`}
-            aria-label={
-              showConfirmPassword
-                ? "Hide confirm password"
-                : "Show confirm password"
-            }
-          >
-            {showConfirmPassword ? (
-              <AiOutlineEyeInvisible size={20} />
-            ) : (
-              <AiOutlineEye size={20} />
-            )}
-          </span>
-        </div>
+        {mode === "signup" && (
+          <div className="flex flex-col relative">
+            <label
+              className={`font-medium ${
+                theme === "light" ? "text-gray-700" : "text-gray-300"
+              }`}
+            >
+              Confirm Password
+            </label>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              minLength={6}
+              required
+              className={`mt-1 border rounded-lg p-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${
+                theme === "light"
+                  ? "border-gray-300 bg-white text-gray-900 focus:ring-blue-500 placeholder-gray-400"
+                  : "border-gray-600 bg-gray-800 text-gray-100 focus:ring-blue-400 placeholder-gray-400"
+              }`}
+              placeholder="Confirm your password"
+            />
+            <span
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className={`absolute right-3 top-10 cursor-pointer ${
+                theme === "light"
+                  ? "text-gray-600 hover:text-gray-800"
+                  : "text-gray-400 hover:text-gray-200"
+              }`}
+            >
+              {showConfirmPassword ? (
+                <AiOutlineEyeInvisible size={20} />
+              ) : (
+                <AiOutlineEye size={20} />
+              )}
+            </span>
+          </div>
+        )}
 
         {/* Bio */}
         <div className="flex flex-col md:col-span-2">
@@ -329,39 +321,24 @@ const SignUpForm = ({ setRegister, currentUser = {}, mode = "signup" }) => {
         {mode === "signup" ? "Sign Up" : "Update Profile"}
       </button>
 
-      <div
-        className={`text-center mt-3 ${
-          theme === "light" ? "text-gray-500" : "text-gray-400"
-        }`}
-      >
-        {mode === "signup" ? (
-          <>
-            Already have an account?{" "}
-            <span
-              onClick={() => setRegister("signin")}
-              className={`cursor-pointer hover:underline ${
-                theme === "light" ? "text-blue-600" : "text-blue-400"
-              }`}
-            >
-              Sign In
-            </span>
-          </>
-        ) : (
+      {/* Switch to Sign In link only for signup mode */}
+      {mode !== "edit" && (
+        <div
+          className={`text-center mt-3 ${
+            theme === "light" ? "text-gray-500" : "text-gray-400"
+          }`}
+        >
+          Already have an account?{" "}
           <span
-            onClick={() => {
-              console.log("clicked");
-              setRegister("signin"); // switch form
-              toggleModal(); // close modal
-            }}
+            onClick={() => setRegister("signin")}
             className={`cursor-pointer hover:underline ${
               theme === "light" ? "text-blue-600" : "text-blue-400"
             }`}
-            aria-label="Cancel and return to sign-in"
           >
-            Cancel
+            Sign In
           </span>
-        )}
-      </div>
+        </div>
+      )}
     </form>
   );
 };
