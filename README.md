@@ -6,6 +6,11 @@
 
 FeedUp is a lightweight, modern social feed web application built with **React** and **Tailwind CSS**. It provides a simplified yet engaging social media experience inspired by platforms like Facebook, allowing users to post content with mood-based styling, interact with static friends, and browse a dynamic feed.
 
+## 🔗 Live Demo
+
+[![Go Live](https://img.shields.io/badge/Go%20Live-FeedUp-blue?style=for-the-badge&logo=netlify)](https://feedup-site.netlify.app/)
+
+
 ### Objectives
 
 - Develop a mid-level React project to enhance frontend interactivity skills.
